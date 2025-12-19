@@ -26,6 +26,6 @@
     "@docusaurus/types": "2.4.3"
   },
   "engines": {
-    "node": ">=14"
+    "node": "18.x"
   }
 }
