@@ -1,0 +1,29 @@
+{
+  "unversionedId": "part-02-practical-systems/computer-vision",
+  "id": "part-02-practical-systems/computer-vision",
+  "title": "Perception and Computer Vision",
+  "description": "Advanced vision-based perception for Physical AI",
+  "source": "@site/docs/part-02-practical-systems/07-computer-vision.md",
+  "sourceDirName": "part-02-practical-systems",
+  "slug": "/part-02-practical-systems/computer-vision",
+  "permalink": "/part-02-practical-systems/computer-vision",
+  "draft": false,
+  "editUrl": "https://github.com/your-org/physical-ai/tree/main/docs/part-02-practical-systems/07-computer-vision.md",
+  "tags": [],
+  "version": "current",
+  "sidebarPosition": 3,
+  "frontMatter": {
+    "sidebar_position": 3,
+    "title": "Perception and Computer Vision",
+    "description": "Advanced vision-based perception for Physical AI"
+  },
+  "sidebar": "tutorialSidebar",
+  "previous": {
+    "title": "Manipulation and Grasping",
+    "permalink": "/part-02-practical-systems/manipulation"
+  },
+  "next": {
+    "title": "Sensor Networks and Distributed Systems",
+    "permalink": "/part-02-practical-systems/sensor-networks"
+  }
+}

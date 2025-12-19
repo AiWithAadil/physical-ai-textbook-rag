@@ -1,0 +1,610 @@
+{
+  "docusaurus-plugin-content-docs": {
+    "default": {
+      "loadedVersions": [
+        {
+          "versionName": "current",
+          "label": "Next",
+          "banner": null,
+          "badge": false,
+          "noIndex": false,
+          "className": "docs-version-current",
+          "path": "/",
+          "tagsPath": "/tags",
+          "editUrl": "https://github.com/your-org/physical-ai/tree/main/docs",
+          "editUrlLocalized": "https://github.com/your-org/physical-ai/tree/main/i18n/en/docusaurus-plugin-content-docs/current",
+          "isLast": true,
+          "routePriority": -1,
+          "sidebarFilePath": "C:\\Users\\HP\\Documents\\HackathonGIAIC\\physical-ai\\sidebars.js",
+          "contentPath": "C:\\Users\\HP\\Documents\\HackathonGIAIC\\physical-ai\\docs",
+          "contentPathLocalized": "C:\\Users\\HP\\Documents\\HackathonGIAIC\\physical-ai\\i18n\\en\\docusaurus-plugin-content-docs\\current",
+          "docs": [
+            {
+              "unversionedId": "appendices/glossary",
+              "id": "appendices/glossary",
+              "title": "Glossary",
+              "description": "Key terms and definitions in Physical AI",
+              "source": "@site/docs/appendices/glossary.md",
+              "sourceDirName": "appendices",
+              "slug": "/appendices/glossary",
+              "permalink": "/appendices/glossary",
+              "draft": false,
+              "editUrl": "https://github.com/your-org/physical-ai/tree/main/docs/appendices/glossary.md",
+              "tags": [],
+              "version": "current",
+              "sidebarPosition": 1,
+              "frontMatter": {
+                "sidebar_position": 1,
+                "title": "Glossary",
+                "description": "Key terms and definitions in Physical AI"
+              },
+              "sidebar": "tutorialSidebar",
+              "previous": {
+                "title": "Case Studies and Future Directions",
+                "permalink": "/part-03-advanced-topics/case-studies"
+              },
+              "next": {
+                "title": "Tools and Setup",
+                "permalink": "/appendices/tools-and-setup"
+              }
+            },
+            {
+              "unversionedId": "appendices/references",
+              "id": "appendices/references",
+              "title": "References",
+              "description": "Books, papers, and resources for further learning",
+              "source": "@site/docs/appendices/references.md",
+              "sourceDirName": "appendices",
+              "slug": "/appendices/references",
+              "permalink": "/appendices/references",
+              "draft": false,
+              "editUrl": "https://github.com/your-org/physical-ai/tree/main/docs/appendices/references.md",
+              "tags": [],
+              "version": "current",
+              "sidebarPosition": 3,
+              "frontMatter": {
+                "sidebar_position": 3,
+                "title": "References",
+                "description": "Books, papers, and resources for further learning"
+              },
+              "sidebar": "tutorialSidebar",
+              "previous": {
+                "title": "Tools and Setup",
+                "permalink": "/appendices/tools-and-setup"
+              }
+            },
+            {
+              "unversionedId": "appendices/tools-and-setup",
+              "id": "appendices/tools-and-setup",
+              "title": "Tools and Setup",
+              "description": "Setting up your Physical AI development environment",
+              "source": "@site/docs/appendices/tools-and-setup.md",
+              "sourceDirName": "appendices",
+              "slug": "/appendices/tools-and-setup",
+              "permalink": "/appendices/tools-and-setup",
+              "draft": false,
+              "editUrl": "https://github.com/your-org/physical-ai/tree/main/docs/appendices/tools-and-setup.md",
+              "tags": [],
+              "version": "current",
+              "sidebarPosition": 2,
+              "frontMatter": {
+                "sidebar_position": 2,
+                "title": "Tools and Setup",
+                "description": "Setting up your Physical AI development environment"
+              },
+              "sidebar": "tutorialSidebar",
+              "previous": {
+                "title": "Glossary",
+                "permalink": "/appendices/glossary"
+              },
+              "next": {
+                "title": "References",
+                "permalink": "/appendices/references"
+              }
+            },
+            {
+              "unversionedId": "homepage",
+              "id": "homepage",
+              "title": "Physical AI",
+              "description": "Building Intelligent Systems That Interact with the Real World",
+              "source": "@site/docs/index.md",
+              "sourceDirName": ".",
+              "slug": "/",
+              "permalink": "/",
+              "draft": false,
+              "editUrl": "https://github.com/your-org/physical-ai/tree/main/docs/index.md",
+              "tags": [],
+              "version": "current",
+              "frontMatter": {
+                "id": "homepage",
+                "title": "Physical AI",
+                "hide_table_of_contents": true
+              }
+            },
+            {
+              "unversionedId": "introduction/overview",
+              "id": "introduction/overview",
+              "title": "Overview",
+              "description": "Welcome to Physical AI - Building Intelligent Systems That Interact with the Real World",
+              "source": "@site/docs/00-introduction/overview.md",
+              "sourceDirName": "00-introduction",
+              "slug": "/introduction/overview",
+              "permalink": "/introduction/overview",
+              "draft": false,
+              "editUrl": "https://github.com/your-org/physical-ai/tree/main/docs/00-introduction/overview.md",
+              "tags": [],
+              "version": "current",
+              "sidebarPosition": 1,
+              "frontMatter": {
+                "sidebar_position": 1,
+                "title": "Overview",
+                "description": "Welcome to Physical AI - Building Intelligent Systems That Interact with the Real World"
+              },
+              "sidebar": "tutorialSidebar",
+              "next": {
+                "title": "What is Physical AI?",
+                "permalink": "/part-01-foundations/what-is-physical-ai"
+              }
+            },
+            {
+              "unversionedId": "part-01-foundations/actuation",
+              "id": "part-01-foundations/actuation",
+              "title": "Actuation - Making Systems Act",
+              "description": "Motors, actuators, and physical action execution",
+              "source": "@site/docs/part-01-foundations/04-actuation.md",
+              "sourceDirName": "part-01-foundations",
+              "slug": "/part-01-foundations/actuation",
+              "permalink": "/part-01-foundations/actuation",
+              "draft": false,
+              "editUrl": "https://github.com/your-org/physical-ai/tree/main/docs/part-01-foundations/04-actuation.md",
+              "tags": [],
+              "version": "current",
+              "sidebarPosition": 4,
+              "frontMatter": {
+                "sidebar_position": 4,
+                "title": "Actuation - Making Systems Act",
+                "description": "Motors, actuators, and physical action execution"
+              },
+              "sidebar": "tutorialSidebar",
+              "previous": {
+                "title": "Decision-Making - AI Logic and Control",
+                "permalink": "/part-01-foundations/decision-making"
+              },
+              "next": {
+                "title": "Mobile Robotics - Autonomous Navigation",
+                "permalink": "/part-02-practical-systems/mobile-robotics"
+              }
+            },
+            {
+              "unversionedId": "part-01-foundations/decision-making",
+              "id": "part-01-foundations/decision-making",
+              "title": "Decision-Making - AI Logic and Control",
+              "description": "Algorithms and control strategies for Physical AI systems",
+              "source": "@site/docs/part-01-foundations/03-decision-making.md",
+              "sourceDirName": "part-01-foundations",
+              "slug": "/part-01-foundations/decision-making",
+              "permalink": "/part-01-foundations/decision-making",
+              "draft": false,
+              "editUrl": "https://github.com/your-org/physical-ai/tree/main/docs/part-01-foundations/03-decision-making.md",
+              "tags": [],
+              "version": "current",
+              "sidebarPosition": 3,
+              "frontMatter": {
+                "sidebar_position": 3,
+                "title": "Decision-Making - AI Logic and Control",
+                "description": "Algorithms and control strategies for Physical AI systems"
+              },
+              "sidebar": "tutorialSidebar",
+              "previous": {
+                "title": "Perception - How Systems Sense the World",
+                "permalink": "/part-01-foundations/perception"
+              },
+              "next": {
+                "title": "Actuation - Making Systems Act",
+                "permalink": "/part-01-foundations/actuation"
+              }
+            },
+            {
+              "unversionedId": "part-01-foundations/perception",
+              "id": "part-01-foundations/perception",
+              "title": "Perception - How Systems Sense the World",
+              "description": "Sensor technologies and data acquisition in Physical AI systems",
+              "source": "@site/docs/part-01-foundations/02-perception.md",
+              "sourceDirName": "part-01-foundations",
+              "slug": "/part-01-foundations/perception",
+              "permalink": "/part-01-foundations/perception",
+              "draft": false,
+              "editUrl": "https://github.com/your-org/physical-ai/tree/main/docs/part-01-foundations/02-perception.md",
+              "tags": [],
+              "version": "current",
+              "sidebarPosition": 2,
+              "frontMatter": {
+                "sidebar_position": 2,
+                "title": "Perception - How Systems Sense the World",
+                "description": "Sensor technologies and data acquisition in Physical AI systems"
+              },
+              "sidebar": "tutorialSidebar",
+              "previous": {
+                "title": "What is Physical AI?",
+                "permalink": "/part-01-foundations/what-is-physical-ai"
+              },
+              "next": {
+                "title": "Decision-Making - AI Logic and Control",
+                "permalink": "/part-01-foundations/decision-making"
+              }
+            },
+            {
+              "unversionedId": "part-01-foundations/what-is-physical-ai",
+              "id": "part-01-foundations/what-is-physical-ai",
+              "title": "What is Physical AI?",
+              "description": "Understanding Physical AI and its applications",
+              "source": "@site/docs/part-01-foundations/01-what-is-physical-ai.md",
+              "sourceDirName": "part-01-foundations",
+              "slug": "/part-01-foundations/what-is-physical-ai",
+              "permalink": "/part-01-foundations/what-is-physical-ai",
+              "draft": false,
+              "editUrl": "https://github.com/your-org/physical-ai/tree/main/docs/part-01-foundations/01-what-is-physical-ai.md",
+              "tags": [],
+              "version": "current",
+              "sidebarPosition": 1,
+              "frontMatter": {
+                "sidebar_position": 1,
+                "title": "What is Physical AI?",
+                "description": "Understanding Physical AI and its applications"
+              },
+              "sidebar": "tutorialSidebar",
+              "previous": {
+                "title": "Overview",
+                "permalink": "/introduction/overview"
+              },
+              "next": {
+                "title": "Perception - How Systems Sense the World",
+                "permalink": "/part-01-foundations/perception"
+              }
+            },
+            {
+              "unversionedId": "part-02-practical-systems/computer-vision",
+              "id": "part-02-practical-systems/computer-vision",
+              "title": "Perception and Computer Vision",
+              "description": "Advanced vision-based perception for Physical AI",
+              "source": "@site/docs/part-02-practical-systems/07-computer-vision.md",
+              "sourceDirName": "part-02-practical-systems",
+              "slug": "/part-02-practical-systems/computer-vision",
+              "permalink": "/part-02-practical-systems/computer-vision",
+              "draft": false,
+              "editUrl": "https://github.com/your-org/physical-ai/tree/main/docs/part-02-practical-systems/07-computer-vision.md",
+              "tags": [],
+              "version": "current",
+              "sidebarPosition": 3,
+              "frontMatter": {
+                "sidebar_position": 3,
+                "title": "Perception and Computer Vision",
+                "description": "Advanced vision-based perception for Physical AI"
+              },
+              "sidebar": "tutorialSidebar",
+              "previous": {
+                "title": "Manipulation and Grasping",
+                "permalink": "/part-02-practical-systems/manipulation"
+              },
+              "next": {
+                "title": "Sensor Networks and Distributed Systems",
+                "permalink": "/part-02-practical-systems/sensor-networks"
+              }
+            },
+            {
+              "unversionedId": "part-02-practical-systems/manipulation",
+              "id": "part-02-practical-systems/manipulation",
+              "title": "Manipulation and Grasping",
+              "description": "Robotic manipulation and object interaction strategies",
+              "source": "@site/docs/part-02-practical-systems/06-manipulation.md",
+              "sourceDirName": "part-02-practical-systems",
+              "slug": "/part-02-practical-systems/manipulation",
+              "permalink": "/part-02-practical-systems/manipulation",
+              "draft": false,
+              "editUrl": "https://github.com/your-org/physical-ai/tree/main/docs/part-02-practical-systems/06-manipulation.md",
+              "tags": [],
+              "version": "current",
+              "sidebarPosition": 2,
+              "frontMatter": {
+                "sidebar_position": 2,
+                "title": "Manipulation and Grasping",
+                "description": "Robotic manipulation and object interaction strategies"
+              },
+              "sidebar": "tutorialSidebar",
+              "previous": {
+                "title": "Mobile Robotics - Autonomous Navigation",
+                "permalink": "/part-02-practical-systems/mobile-robotics"
+              },
+              "next": {
+                "title": "Perception and Computer Vision",
+                "permalink": "/part-02-practical-systems/computer-vision"
+              }
+            },
+            {
+              "unversionedId": "part-02-practical-systems/mobile-robotics",
+              "id": "part-02-practical-systems/mobile-robotics",
+              "title": "Mobile Robotics - Autonomous Navigation",
+              "description": "Building and understanding autonomous mobile robots",
+              "source": "@site/docs/part-02-practical-systems/05-mobile-robotics.md",
+              "sourceDirName": "part-02-practical-systems",
+              "slug": "/part-02-practical-systems/mobile-robotics",
+              "permalink": "/part-02-practical-systems/mobile-robotics",
+              "draft": false,
+              "editUrl": "https://github.com/your-org/physical-ai/tree/main/docs/part-02-practical-systems/05-mobile-robotics.md",
+              "tags": [],
+              "version": "current",
+              "sidebarPosition": 1,
+              "frontMatter": {
+                "sidebar_position": 1,
+                "title": "Mobile Robotics - Autonomous Navigation",
+                "description": "Building and understanding autonomous mobile robots"
+              },
+              "sidebar": "tutorialSidebar",
+              "previous": {
+                "title": "Actuation - Making Systems Act",
+                "permalink": "/part-01-foundations/actuation"
+              },
+              "next": {
+                "title": "Manipulation and Grasping",
+                "permalink": "/part-02-practical-systems/manipulation"
+              }
+            },
+            {
+              "unversionedId": "part-02-practical-systems/sensor-networks",
+              "id": "part-02-practical-systems/sensor-networks",
+              "title": "Sensor Networks and Distributed Systems",
+              "description": "Multi-sensor coordination and distributed decision-making",
+              "source": "@site/docs/part-02-practical-systems/08-sensor-networks.md",
+              "sourceDirName": "part-02-practical-systems",
+              "slug": "/part-02-practical-systems/sensor-networks",
+              "permalink": "/part-02-practical-systems/sensor-networks",
+              "draft": false,
+              "editUrl": "https://github.com/your-org/physical-ai/tree/main/docs/part-02-practical-systems/08-sensor-networks.md",
+              "tags": [],
+              "version": "current",
+              "sidebarPosition": 4,
+              "frontMatter": {
+                "sidebar_position": 4,
+                "title": "Sensor Networks and Distributed Systems",
+                "description": "Multi-sensor coordination and distributed decision-making"
+              },
+              "sidebar": "tutorialSidebar",
+              "previous": {
+                "title": "Perception and Computer Vision",
+                "permalink": "/part-02-practical-systems/computer-vision"
+              },
+              "next": {
+                "title": "Learning in Physical Systems",
+                "permalink": "/part-03-advanced-topics/learning-systems"
+              }
+            },
+            {
+              "unversionedId": "part-03-advanced-topics/case-studies",
+              "id": "part-03-advanced-topics/case-studies",
+              "title": "Case Studies and Future Directions",
+              "description": "Real-world examples and emerging directions in Physical AI",
+              "source": "@site/docs/part-03-advanced-topics/12-case-studies.md",
+              "sourceDirName": "part-03-advanced-topics",
+              "slug": "/part-03-advanced-topics/case-studies",
+              "permalink": "/part-03-advanced-topics/case-studies",
+              "draft": false,
+              "editUrl": "https://github.com/your-org/physical-ai/tree/main/docs/part-03-advanced-topics/12-case-studies.md",
+              "tags": [],
+              "version": "current",
+              "sidebarPosition": 4,
+              "frontMatter": {
+                "sidebar_position": 4,
+                "title": "Case Studies and Future Directions",
+                "description": "Real-world examples and emerging directions in Physical AI"
+              },
+              "sidebar": "tutorialSidebar",
+              "previous": {
+                "title": "Real-World Integration and Deployment",
+                "permalink": "/part-03-advanced-topics/real-world-integration"
+              },
+              "next": {
+                "title": "Glossary",
+                "permalink": "/appendices/glossary"
+              }
+            },
+            {
+              "unversionedId": "part-03-advanced-topics/learning-systems",
+              "id": "part-03-advanced-topics/learning-systems",
+              "title": "Learning in Physical Systems",
+              "description": "Reinforcement learning and adaptation in Physical AI",
+              "source": "@site/docs/part-03-advanced-topics/09-learning-systems.md",
+              "sourceDirName": "part-03-advanced-topics",
+              "slug": "/part-03-advanced-topics/learning-systems",
+              "permalink": "/part-03-advanced-topics/learning-systems",
+              "draft": false,
+              "editUrl": "https://github.com/your-org/physical-ai/tree/main/docs/part-03-advanced-topics/09-learning-systems.md",
+              "tags": [],
+              "version": "current",
+              "sidebarPosition": 1,
+              "frontMatter": {
+                "sidebar_position": 1,
+                "title": "Learning in Physical Systems",
+                "description": "Reinforcement learning and adaptation in Physical AI"
+              },
+              "sidebar": "tutorialSidebar",
+              "previous": {
+                "title": "Sensor Networks and Distributed Systems",
+                "permalink": "/part-02-practical-systems/sensor-networks"
+              },
+              "next": {
+                "title": "Safety, Robustness, and Reliability",
+                "permalink": "/part-03-advanced-topics/safety-robustness"
+              }
+            },
+            {
+              "unversionedId": "part-03-advanced-topics/real-world-integration",
+              "id": "part-03-advanced-topics/real-world-integration",
+              "title": "Real-World Integration and Deployment",
+              "description": "Bridging the gap between simulation and real systems",
+              "source": "@site/docs/part-03-advanced-topics/11-real-world-integration.md",
+              "sourceDirName": "part-03-advanced-topics",
+              "slug": "/part-03-advanced-topics/real-world-integration",
+              "permalink": "/part-03-advanced-topics/real-world-integration",
+              "draft": false,
+              "editUrl": "https://github.com/your-org/physical-ai/tree/main/docs/part-03-advanced-topics/11-real-world-integration.md",
+              "tags": [],
+              "version": "current",
+              "sidebarPosition": 3,
+              "frontMatter": {
+                "sidebar_position": 3,
+                "title": "Real-World Integration and Deployment",
+                "description": "Bridging the gap between simulation and real systems"
+              },
+              "sidebar": "tutorialSidebar",
+              "previous": {
+                "title": "Safety, Robustness, and Reliability",
+                "permalink": "/part-03-advanced-topics/safety-robustness"
+              },
+              "next": {
+                "title": "Case Studies and Future Directions",
+                "permalink": "/part-03-advanced-topics/case-studies"
+              }
+            },
+            {
+              "unversionedId": "part-03-advanced-topics/safety-robustness",
+              "id": "part-03-advanced-topics/safety-robustness",
+              "title": "Safety, Robustness, and Reliability",
+              "description": "Critical non-functional concerns in Physical AI systems",
+              "source": "@site/docs/part-03-advanced-topics/10-safety-robustness.md",
+              "sourceDirName": "part-03-advanced-topics",
+              "slug": "/part-03-advanced-topics/safety-robustness",
+              "permalink": "/part-03-advanced-topics/safety-robustness",
+              "draft": false,
+              "editUrl": "https://github.com/your-org/physical-ai/tree/main/docs/part-03-advanced-topics/10-safety-robustness.md",
+              "tags": [],
+              "version": "current",
+              "sidebarPosition": 2,
+              "frontMatter": {
+                "sidebar_position": 2,
+                "title": "Safety, Robustness, and Reliability",
+                "description": "Critical non-functional concerns in Physical AI systems"
+              },
+              "sidebar": "tutorialSidebar",
+              "previous": {
+                "title": "Learning in Physical Systems",
+                "permalink": "/part-03-advanced-topics/learning-systems"
+              },
+              "next": {
+                "title": "Real-World Integration and Deployment",
+                "permalink": "/part-03-advanced-topics/real-world-integration"
+              }
+            }
+          ],
+          "drafts": [],
+          "sidebars": {
+            "tutorialSidebar": [
+              {
+                "type": "doc",
+                "id": "introduction/overview"
+              },
+              {
+                "type": "category",
+                "label": "Part 1: Foundations",
+                "items": [
+                  {
+                    "type": "doc",
+                    "id": "part-01-foundations/what-is-physical-ai"
+                  },
+                  {
+                    "type": "doc",
+                    "id": "part-01-foundations/perception"
+                  },
+                  {
+                    "type": "doc",
+                    "id": "part-01-foundations/decision-making"
+                  },
+                  {
+                    "type": "doc",
+                    "id": "part-01-foundations/actuation"
+                  }
+                ],
+                "collapsed": true,
+                "collapsible": true
+              },
+              {
+                "type": "category",
+                "label": "Part 2: Practical Systems",
+                "items": [
+                  {
+                    "type": "doc",
+                    "id": "part-02-practical-systems/mobile-robotics"
+                  },
+                  {
+                    "type": "doc",
+                    "id": "part-02-practical-systems/manipulation"
+                  },
+                  {
+                    "type": "doc",
+                    "id": "part-02-practical-systems/computer-vision"
+                  },
+                  {
+                    "type": "doc",
+                    "id": "part-02-practical-systems/sensor-networks"
+                  }
+                ],
+                "collapsed": true,
+                "collapsible": true
+              },
+              {
+                "type": "category",
+                "label": "Part 3: Advanced Topics",
+                "items": [
+                  {
+                    "type": "doc",
+                    "id": "part-03-advanced-topics/learning-systems"
+                  },
+                  {
+                    "type": "doc",
+                    "id": "part-03-advanced-topics/safety-robustness"
+                  },
+                  {
+                    "type": "doc",
+                    "id": "part-03-advanced-topics/real-world-integration"
+                  },
+                  {
+                    "type": "doc",
+                    "id": "part-03-advanced-topics/case-studies"
+                  }
+                ],
+                "collapsed": true,
+                "collapsible": true
+              },
+              {
+                "type": "category",
+                "label": "Appendices",
+                "items": [
+                  {
+                    "type": "doc",
+                    "id": "appendices/glossary"
+                  },
+                  {
+                    "type": "doc",
+                    "id": "appendices/tools-and-setup"
+                  },
+                  {
+                    "type": "doc",
+                    "id": "appendices/references"
+                  }
+                ],
+                "collapsed": true,
+                "collapsible": true
+              }
+            ]
+          }
+        }
+      ]
+    }
+  },
+  "docusaurus-plugin-content-pages": {
+    "default": null
+  },
+  "docusaurus-plugin-debug": {},
+  "docusaurus-theme-classic": {},
+  "docusaurus-bootstrap-plugin": {},
+  "docusaurus-mdx-fallback-plugin": {}
+}

@@ -1,0 +1,29 @@
+{
+  "unversionedId": "part-02-practical-systems/mobile-robotics",
+  "id": "part-02-practical-systems/mobile-robotics",
+  "title": "Mobile Robotics - Autonomous Navigation",
+  "description": "Building and understanding autonomous mobile robots",
+  "source": "@site/docs/part-02-practical-systems/05-mobile-robotics.md",
+  "sourceDirName": "part-02-practical-systems",
+  "slug": "/part-02-practical-systems/mobile-robotics",
+  "permalink": "/part-02-practical-systems/mobile-robotics",
+  "draft": false,
+  "editUrl": "https://github.com/your-org/physical-ai/tree/main/docs/part-02-practical-systems/05-mobile-robotics.md",
+  "tags": [],
+  "version": "current",
+  "sidebarPosition": 1,
+  "frontMatter": {
+    "sidebar_position": 1,
+    "title": "Mobile Robotics - Autonomous Navigation",
+    "description": "Building and understanding autonomous mobile robots"
+  },
+  "sidebar": "tutorialSidebar",
+  "previous": {
+    "title": "Actuation - Making Systems Act",
+    "permalink": "/part-01-foundations/actuation"
+  },
+  "next": {
+    "title": "Manipulation and Grasping",
+    "permalink": "/part-02-practical-systems/manipulation"
+  }
+}

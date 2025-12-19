@@ -1,0 +1,29 @@
+{
+  "unversionedId": "part-03-advanced-topics/learning-systems",
+  "id": "part-03-advanced-topics/learning-systems",
+  "title": "Learning in Physical Systems",
+  "description": "Reinforcement learning and adaptation in Physical AI",
+  "source": "@site/docs/part-03-advanced-topics/09-learning-systems.md",
+  "sourceDirName": "part-03-advanced-topics",
+  "slug": "/part-03-advanced-topics/learning-systems",
+  "permalink": "/part-03-advanced-topics/learning-systems",
+  "draft": false,
+  "editUrl": "https://github.com/your-org/physical-ai/tree/main/docs/part-03-advanced-topics/09-learning-systems.md",
+  "tags": [],
+  "version": "current",
+  "sidebarPosition": 1,
+  "frontMatter": {
+    "sidebar_position": 1,
+    "title": "Learning in Physical Systems",
+    "description": "Reinforcement learning and adaptation in Physical AI"
+  },
+  "sidebar": "tutorialSidebar",
+  "previous": {
+    "title": "Sensor Networks and Distributed Systems",
+    "permalink": "/part-02-practical-systems/sensor-networks"
+  },
+  "next": {
+    "title": "Safety, Robustness, and Reliability",
+    "permalink": "/part-03-advanced-topics/safety-robustness"
+  }
+}

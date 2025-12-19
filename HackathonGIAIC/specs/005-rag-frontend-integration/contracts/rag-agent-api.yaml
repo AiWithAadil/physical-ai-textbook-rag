@@ -1,0 +1,221 @@
+openapi: 3.0.0
+info:
+  title: RAG Agent API
+  description: API for the Retrieval-Augmented Generation Agent that answers questions based on retrieved documents
+  version: 1.0.0
+servers:
+  - url: http://localhost:8000
+    description: Development server
+  - url: https://api.rag-agent.com
+    description: Production server
+
+paths:
+  /ask:
+    get:
+      summary: Ask a question to the RAG Agent
+      description: Submit a query to the RAG Agent and receive an answer with sources and matched chunks
+      operationId: ask_question
+      parameters:
+        - name: query
+          in: query
+          required: true
+          description: The question or query to ask the RAG Agent
+          schema:
+            type: string
+            example: "What is Retrieval-Augmented Generation?"
+        - name: top_k
+          in: query
+          required: false
+          description: Number of chunks to retrieve (default: 5)
+          schema:
+            type: integer
+            minimum: 1
+            maximum: 20
+            default: 5
+        - name: threshold
+          in: query
+          required: false
+          description: Similarity score threshold (default: 0.6)
+          schema:
+            type: number
+            format: float
+            minimum: 0.0
+            maximum: 1.0
+            default: 0.6
+      responses:
+        '200':
+          description: Successful response from the RAG Agent
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RAGAgentResponse'
+        '400':
+          description: Bad request - invalid parameters
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+    post:
+      summary: Ask a question to the RAG Agent (POST method)
+      description: Submit a query to the RAG Agent and receive an answer with sources and matched chunks using POST method
+      operationId: ask_question_post
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AskRequest'
+      responses:
+        '200':
+          description: Successful response from the RAG Agent
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RAGAgentResponse'
+        '400':
+          description: Bad request - invalid parameters
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+
+  /health:
+    get:
+      summary: Health check
+      description: Check if the RAG Agent service is running
+      operationId: health_check
+      responses:
+        '200':
+          description: Service is healthy
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    example: "healthy"
+                  timestamp:
+                    type: string
+                    format: date-time
+                    example: "2025-12-17T10:00:00Z"
+
+components:
+  schemas:
+    AskRequest:
+      type: object
+      required:
+        - query
+      properties:
+        query:
+          type: string
+          description: The question or query to ask the RAG Agent
+          example: "What is Retrieval-Augmented Generation?"
+        top_k:
+          type: integer
+          description: Number of chunks to retrieve (default: 5)
+          minimum: 1
+          maximum: 20
+          default: 5
+        threshold:
+          type: number
+          format: float
+          description: Similarity score threshold (default: 0.6)
+          minimum: 0.0
+          maximum: 1.0
+          default: 0.6
+
+    RAGAgentResponse:
+      type: object
+      properties:
+        answer:
+          type: string
+          description: Generated answer from the RAG Agent
+          example: "Retrieval-Augmented Generation (RAG) is a technique that enhances language models by retrieving relevant documents from a knowledge base before generating responses..."
+        sources:
+          type: array
+          description: List of source URLs from retrieved chunks
+          items:
+            type: string
+            example: "https://example.com/document1"
+        matched_chunks:
+          type: array
+          description: Retrieved chunks with metadata
+          items:
+            $ref: '#/components/schemas/MatchedChunk'
+        execution_metadata:
+          $ref: '#/components/schemas/ExecutionMetadata'
+        error:
+          type: string
+          description: Error message if applicable, null if successful
+          example: null
+
+    MatchedChunk:
+      type: object
+      properties:
+        rank:
+          type: integer
+          description: Rank of the chunk in the retrieval results
+          example: 1
+        text:
+          type: string
+          description: The text content of the matched chunk
+          example: "Retrieval-Augmented Generation combines a retrieval mechanism with a generation model..."
+        similarity_score:
+          type: number
+          format: float
+          description: Similarity score of the chunk to the query
+          example: 0.92
+        source:
+          type: string
+          description: Source of the chunk
+          example: "https://example.com/doc1"
+        metadata:
+          type: object
+          description: Additional metadata about the chunk
+          additionalProperties: true
+
+    ExecutionMetadata:
+      type: object
+      properties:
+        latency_ms:
+          type: integer
+          description: Processing time in milliseconds
+          example: 1250
+        chunk_count:
+          type: integer
+          description: Number of chunks retrieved
+          example: 3
+        top_k:
+          type: integer
+          description: Number of chunks requested
+          example: 5
+        threshold:
+          type: number
+          format: float
+          description: Similarity threshold used
+          example: 0.6
+
+    ErrorResponse:
+      type: object
+      properties:
+        error:
+          type: string
+          description: Error message
+          example: "Query cannot be empty"
+        details:
+          type: object
+          description: Additional error details
+          additionalProperties: true

@@ -1,0 +1,20 @@
+[project]
+name = "embedding-pipeline"
+version = "0.1.0"
+description = "Embedding pipeline for Docusaurus content extraction and RAG storage"
+authors = [{name = "Developer", email = "dev@example.com"}]
+dependencies = [
+    "cohere>=4.9.3",
+    "qdrant-client>=1.9.1",
+    "requests>=2.31.0",
+    "beautifulsoup4>=4.12.2"
+]
+readme = "README.md"
+requires-python = ">=3.11"
+
+[build-system]
+requires = ["setuptools>=61.0"]
+build-backend = "setuptools.build_meta"
+
+[tool.setuptools.packages.find]
+where = ["."]

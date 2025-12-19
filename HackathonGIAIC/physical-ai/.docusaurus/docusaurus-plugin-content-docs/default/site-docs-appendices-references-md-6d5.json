@@ -1,0 +1,25 @@
+{
+  "unversionedId": "appendices/references",
+  "id": "appendices/references",
+  "title": "References",
+  "description": "Books, papers, and resources for further learning",
+  "source": "@site/docs/appendices/references.md",
+  "sourceDirName": "appendices",
+  "slug": "/appendices/references",
+  "permalink": "/appendices/references",
+  "draft": false,
+  "editUrl": "https://github.com/your-org/physical-ai/tree/main/docs/appendices/references.md",
+  "tags": [],
+  "version": "current",
+  "sidebarPosition": 3,
+  "frontMatter": {
+    "sidebar_position": 3,
+    "title": "References",
+    "description": "Books, papers, and resources for further learning"
+  },
+  "sidebar": "tutorialSidebar",
+  "previous": {
+    "title": "Tools and Setup",
+    "permalink": "/appendices/tools-and-setup"
+  }
+}

@@ -1,0 +1,120 @@
+{
+  "/__docusaurus/debug-4f6": {
+    "__comp": "__comp---theme-debug-config-23-a-2ff",
+    "__context": {
+      "plugin": "plugin---docusaurus-debug-447-1f1"
+    }
+  },
+  "/__docusaurus/debug/config-7ba": {
+    "__comp": "__comp---theme-debug-config-23-a-2ff",
+    "__context": {
+      "plugin": "plugin---docusaurus-debug-447-1f1"
+    }
+  },
+  "/__docusaurus/debug/content-0ec": {
+    "__comp": "__comp---theme-debug-contentba-8-ce7",
+    "__context": {
+      "plugin": "plugin---docusaurus-debug-447-1f1"
+    },
+    "allContent": "allContent---docusaurus-debug-content-246-9aa"
+  },
+  "/__docusaurus/debug/globalData-424": {
+    "__comp": "__comp---theme-debug-global-dataede-0fa",
+    "__context": {
+      "plugin": "plugin---docusaurus-debug-447-1f1"
+    }
+  },
+  "/__docusaurus/debug/metadata-8c6": {
+    "__comp": "__comp---theme-debug-site-metadata-68-e-3d4",
+    "__context": {
+      "plugin": "plugin---docusaurus-debug-447-1f1"
+    }
+  },
+  "/__docusaurus/debug/registry-e38": {
+    "__comp": "__comp---theme-debug-registry-679-501",
+    "__context": {
+      "plugin": "plugin---docusaurus-debug-447-1f1"
+    }
+  },
+  "/__docusaurus/debug/routes-0a5": {
+    "__comp": "__comp---theme-debug-routes-946-699",
+    "__context": {
+      "plugin": "plugin---docusaurus-debug-447-1f1"
+    }
+  },
+  "/-315": {
+    "__comp": "__comp---theme-doc-page-1-be-9be",
+    "__context": {
+      "plugin": "plugin---caf-7de"
+    },
+    "versionMetadata": "versionMetadata---935-fcf"
+  },
+  "/-134": {
+    "__comp": "__comp---theme-doc-item-178-a40",
+    "content": "content---c-37-d02"
+  },
+  "/appendices/glossary-5fb": {
+    "__comp": "__comp---theme-doc-item-178-a40",
+    "content": "content---appendices-glossary-3-bc-866"
+  },
+  "/appendices/references-c71": {
+    "__comp": "__comp---theme-doc-item-178-a40",
+    "content": "content---appendices-references-6-d-5-ff4"
+  },
+  "/appendices/tools-and-setup-614": {
+    "__comp": "__comp---theme-doc-item-178-a40",
+    "content": "content---appendices-tools-and-setup-439-fe1"
+  },
+  "/introduction/overview-1b0": {
+    "__comp": "__comp---theme-doc-item-178-a40",
+    "content": "content---introduction-overview-5-d-6-03d"
+  },
+  "/part-01-foundations/actuation-08d": {
+    "__comp": "__comp---theme-doc-item-178-a40",
+    "content": "content---part-01-foundations-actuationfee-e1f"
+  },
+  "/part-01-foundations/decision-making-2f8": {
+    "__comp": "__comp---theme-doc-item-178-a40",
+    "content": "content---part-01-foundations-decision-making-4-a-8-26f"
+  },
+  "/part-01-foundations/perception-a1c": {
+    "__comp": "__comp---theme-doc-item-178-a40",
+    "content": "content---part-01-foundations-perceptiond-77-d2f"
+  },
+  "/part-01-foundations/what-is-physical-ai-986": {
+    "__comp": "__comp---theme-doc-item-178-a40",
+    "content": "content---part-01-foundations-what-is-physical-ai-150-500"
+  },
+  "/part-02-practical-systems/computer-vision-83b": {
+    "__comp": "__comp---theme-doc-item-178-a40",
+    "content": "content---part-02-practical-systems-computer-visionc-11-982"
+  },
+  "/part-02-practical-systems/manipulation-6c0": {
+    "__comp": "__comp---theme-doc-item-178-a40",
+    "content": "content---part-02-practical-systems-manipulationa-85-f6a"
+  },
+  "/part-02-practical-systems/mobile-robotics-639": {
+    "__comp": "__comp---theme-doc-item-178-a40",
+    "content": "content---part-02-practical-systems-mobile-robotics-59-e-fc9"
+  },
+  "/part-02-practical-systems/sensor-networks-eec": {
+    "__comp": "__comp---theme-doc-item-178-a40",
+    "content": "content---part-02-practical-systems-sensor-networksbde-100"
+  },
+  "/part-03-advanced-topics/case-studies-b35": {
+    "__comp": "__comp---theme-doc-item-178-a40",
+    "content": "content---part-03-advanced-topics-case-studies-07-a-00f"
+  },
+  "/part-03-advanced-topics/learning-systems-5d2": {
+    "__comp": "__comp---theme-doc-item-178-a40",
+    "content": "content---part-03-advanced-topics-learning-systems-3-d-8-2c9"
+  },
+  "/part-03-advanced-topics/real-world-integration-dd4": {
+    "__comp": "__comp---theme-doc-item-178-a40",
+    "content": "content---part-03-advanced-topics-real-world-integration-3-da-17a"
+  },
+  "/part-03-advanced-topics/safety-robustness-364": {
+    "__comp": "__comp---theme-doc-item-178-a40",
+    "content": "content---part-03-advanced-topics-safety-robustness-8-d-7-589"
+  }
+}

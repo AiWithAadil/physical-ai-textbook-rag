@@ -1,0 +1,29 @@
+{
+  "unversionedId": "appendices/tools-and-setup",
+  "id": "appendices/tools-and-setup",
+  "title": "Tools and Setup",
+  "description": "Setting up your Physical AI development environment",
+  "source": "@site/docs/appendices/tools-and-setup.md",
+  "sourceDirName": "appendices",
+  "slug": "/appendices/tools-and-setup",
+  "permalink": "/appendices/tools-and-setup",
+  "draft": false,
+  "editUrl": "https://github.com/your-org/physical-ai/tree/main/docs/appendices/tools-and-setup.md",
+  "tags": [],
+  "version": "current",
+  "sidebarPosition": 2,
+  "frontMatter": {
+    "sidebar_position": 2,
+    "title": "Tools and Setup",
+    "description": "Setting up your Physical AI development environment"
+  },
+  "sidebar": "tutorialSidebar",
+  "previous": {
+    "title": "Glossary",
+    "permalink": "/appendices/glossary"
+  },
+  "next": {
+    "title": "References",
+    "permalink": "/appendices/references"
+  }
+}

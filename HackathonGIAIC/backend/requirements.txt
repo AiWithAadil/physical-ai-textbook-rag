@@ -1,0 +1,31 @@
+# Core dependencies
+qdrant-client>=2.7.0
+cohere>=5.0.0
+pydantic>=2.0.0
+python-dotenv>=1.0.0
+
+# API framework (optional, for REST endpoints)
+fastapi>=0.104.0
+uvicorn>=0.24.0
+
+# Async support
+httpx>=0.25.0
+
+# Testing
+pytest>=7.4.0
+pytest-asyncio>=0.21.0
+pytest-cov>=4.1.0
+
+# Development tools
+black>=23.0.0
+ruff>=0.1.0
+mypy>=1.7.0
+
+# Logging and monitoring
+python-json-logger>=2.0.0
+
+# Performance and utilities
+tenacity>=8.2.0
+
+# LLM Integration - Gemini
+google-generativeai>=0.7.0

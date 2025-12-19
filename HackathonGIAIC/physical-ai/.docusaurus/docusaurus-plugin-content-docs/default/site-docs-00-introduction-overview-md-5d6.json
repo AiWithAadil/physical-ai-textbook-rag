@@ -1,0 +1,25 @@
+{
+  "unversionedId": "introduction/overview",
+  "id": "introduction/overview",
+  "title": "Overview",
+  "description": "Welcome to Physical AI - Building Intelligent Systems That Interact with the Real World",
+  "source": "@site/docs/00-introduction/overview.md",
+  "sourceDirName": "00-introduction",
+  "slug": "/introduction/overview",
+  "permalink": "/introduction/overview",
+  "draft": false,
+  "editUrl": "https://github.com/your-org/physical-ai/tree/main/docs/00-introduction/overview.md",
+  "tags": [],
+  "version": "current",
+  "sidebarPosition": 1,
+  "frontMatter": {
+    "sidebar_position": 1,
+    "title": "Overview",
+    "description": "Welcome to Physical AI - Building Intelligent Systems That Interact with the Real World"
+  },
+  "sidebar": "tutorialSidebar",
+  "next": {
+    "title": "What is Physical AI?",
+    "permalink": "/part-01-foundations/what-is-physical-ai"
+  }
+}

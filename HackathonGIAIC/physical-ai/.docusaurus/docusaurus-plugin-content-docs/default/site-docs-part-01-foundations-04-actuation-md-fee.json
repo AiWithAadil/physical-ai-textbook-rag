@@ -1,0 +1,29 @@
+{
+  "unversionedId": "part-01-foundations/actuation",
+  "id": "part-01-foundations/actuation",
+  "title": "Actuation - Making Systems Act",
+  "description": "Motors, actuators, and physical action execution",
+  "source": "@site/docs/part-01-foundations/04-actuation.md",
+  "sourceDirName": "part-01-foundations",
+  "slug": "/part-01-foundations/actuation",
+  "permalink": "/part-01-foundations/actuation",
+  "draft": false,
+  "editUrl": "https://github.com/your-org/physical-ai/tree/main/docs/part-01-foundations/04-actuation.md",
+  "tags": [],
+  "version": "current",
+  "sidebarPosition": 4,
+  "frontMatter": {
+    "sidebar_position": 4,
+    "title": "Actuation - Making Systems Act",
+    "description": "Motors, actuators, and physical action execution"
+  },
+  "sidebar": "tutorialSidebar",
+  "previous": {
+    "title": "Decision-Making - AI Logic and Control",
+    "permalink": "/part-01-foundations/decision-making"
+  },
+  "next": {
+    "title": "Mobile Robotics - Autonomous Navigation",
+    "permalink": "/part-02-practical-systems/mobile-robotics"
+  }
+}

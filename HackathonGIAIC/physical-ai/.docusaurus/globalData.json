@@ -1,0 +1,112 @@
+{
+  "docusaurus-plugin-content-docs": {
+    "default": {
+      "path": "/",
+      "versions": [
+        {
+          "name": "current",
+          "label": "Next",
+          "isLast": true,
+          "path": "/",
+          "mainDocId": "homepage",
+          "docs": [
+            {
+              "id": "appendices/glossary",
+              "path": "/appendices/glossary",
+              "sidebar": "tutorialSidebar"
+            },
+            {
+              "id": "appendices/references",
+              "path": "/appendices/references",
+              "sidebar": "tutorialSidebar"
+            },
+            {
+              "id": "appendices/tools-and-setup",
+              "path": "/appendices/tools-and-setup",
+              "sidebar": "tutorialSidebar"
+            },
+            {
+              "id": "homepage",
+              "path": "/"
+            },
+            {
+              "id": "introduction/overview",
+              "path": "/introduction/overview",
+              "sidebar": "tutorialSidebar"
+            },
+            {
+              "id": "part-01-foundations/actuation",
+              "path": "/part-01-foundations/actuation",
+              "sidebar": "tutorialSidebar"
+            },
+            {
+              "id": "part-01-foundations/decision-making",
+              "path": "/part-01-foundations/decision-making",
+              "sidebar": "tutorialSidebar"
+            },
+            {
+              "id": "part-01-foundations/perception",
+              "path": "/part-01-foundations/perception",
+              "sidebar": "tutorialSidebar"
+            },
+            {
+              "id": "part-01-foundations/what-is-physical-ai",
+              "path": "/part-01-foundations/what-is-physical-ai",
+              "sidebar": "tutorialSidebar"
+            },
+            {
+              "id": "part-02-practical-systems/computer-vision",
+              "path": "/part-02-practical-systems/computer-vision",
+              "sidebar": "tutorialSidebar"
+            },
+            {
+              "id": "part-02-practical-systems/manipulation",
+              "path": "/part-02-practical-systems/manipulation",
+              "sidebar": "tutorialSidebar"
+            },
+            {
+              "id": "part-02-practical-systems/mobile-robotics",
+              "path": "/part-02-practical-systems/mobile-robotics",
+              "sidebar": "tutorialSidebar"
+            },
+            {
+              "id": "part-02-practical-systems/sensor-networks",
+              "path": "/part-02-practical-systems/sensor-networks",
+              "sidebar": "tutorialSidebar"
+            },
+            {
+              "id": "part-03-advanced-topics/case-studies",
+              "path": "/part-03-advanced-topics/case-studies",
+              "sidebar": "tutorialSidebar"
+            },
+            {
+              "id": "part-03-advanced-topics/learning-systems",
+              "path": "/part-03-advanced-topics/learning-systems",
+              "sidebar": "tutorialSidebar"
+            },
+            {
+              "id": "part-03-advanced-topics/real-world-integration",
+              "path": "/part-03-advanced-topics/real-world-integration",
+              "sidebar": "tutorialSidebar"
+            },
+            {
+              "id": "part-03-advanced-topics/safety-robustness",
+              "path": "/part-03-advanced-topics/safety-robustness",
+              "sidebar": "tutorialSidebar"
+            }
+          ],
+          "draftIds": [],
+          "sidebars": {
+            "tutorialSidebar": {
+              "link": {
+                "path": "/introduction/overview",
+                "label": "introduction/overview"
+              }
+            }
+          }
+        }
+      ],
+      "breadcrumbs": true
+    }
+  }
+}

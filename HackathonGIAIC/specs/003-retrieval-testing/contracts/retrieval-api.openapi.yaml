@@ -1,0 +1,504 @@
+openapi: 3.0.0
+info:
+  title: Retrieval Service API
+  description: Semantic search and vector retrieval API for RAG systems
+  version: 1.0.0
+  contact:
+    name: Physical AI Team
+  license:
+    name: MIT
+
+servers:
+  - url: http://localhost:8000/api/v1
+    description: Local development
+  - url: https://api.example.com/api/v1
+    description: Production
+
+paths:
+  /retrieval/search:
+    post:
+      summary: Semantic search in vector database
+      description: Query Qdrant for semantically similar document chunks using vector embeddings
+      operationId: searchVectors
+      tags:
+        - Retrieval
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SearchRequest'
+            examples:
+              basicQuery:
+                summary: Basic semantic search
+                value:
+                  query: "How do I set up a vector database?"
+                  top_k: 5
+                  similarity_threshold: 0.7
+              minimalQuery:
+                summary: Query with defaults
+                value:
+                  query: "vector search"
+      responses:
+        '200':
+          description: Successful search with results
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RetrievalResponse'
+              examples:
+                success:
+                  summary: Successful search with 3 results
+                  value:
+                    query: "How do I set up a vector database?"
+                    status: "success"
+                    results:
+                      - rank: 1
+                        text: "To set up a vector database, first install the Qdrant Docker image using docker run -p 6333:6333 qdrant/qdrant"
+                        similarity_score: 0.92
+                        metadata:
+                          chunk_id: "550e8400-e29b-41d4-a716-446655440000"
+                          url: "https://docs.example.com/guide/setup"
+                          position: 245
+                          timestamp: "2025-12-15T10:30:00Z"
+                          document_title: "Vector Database Setup Guide"
+                      - rank: 2
+                        text: "Install Qdrant using Docker Compose for production deployments with persistent storage"
+                        similarity_score: 0.88
+                        metadata:
+                          chunk_id: "550e8400-e29b-41d4-a716-446655440001"
+                          url: "https://docs.example.com/install"
+                          position: 512
+                          timestamp: "2025-12-15T10:30:00Z"
+                          document_title: "Qdrant Installation Instructions"
+                    execution:
+                      latency_ms: 145
+                      result_count: 2
+                      threshold_applied: 0.7
+                      query_embedded_at: "2025-12-16T14:30:01Z"
+                      qdrant_query_time_ms: 120
+                    errors: []
+        '400':
+          description: Invalid request parameters
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+              examples:
+                emptyQuery:
+                  summary: Empty query text
+                  value:
+                    query: ""
+                    status: "error"
+                    results: []
+                    execution:
+                      latency_ms: 10
+                      result_count: 0
+                      threshold_applied: 0.0
+                    errors:
+                      - "query cannot be empty"
+                invalidTopK:
+                  summary: Invalid top_k parameter
+                  value:
+                    query: "test query"
+                    status: "error"
+                    results: []
+                    execution:
+                      latency_ms: 10
+                      result_count: 0
+                      threshold_applied: 0.0
+                    errors:
+                      - "top_k must be between 1 and 1000, got 2000"
+        '503':
+          description: Service unavailable (Qdrant or Cohere API down)
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+              examples:
+                qdrantDown:
+                  summary: Qdrant service unavailable
+                  value:
+                    query: "test query"
+                    status: "error"
+                    results: []
+                    execution:
+                      latency_ms: 5000
+                      result_count: 0
+                      threshold_applied: 0.0
+                    errors:
+                      - "Qdrant service unavailable at http://localhost:6333"
+                      - "Connection timeout after 5 seconds"
+      x-code-samples:
+        - lang: python
+          source: |
+            import requests
+            import json
+
+            response = requests.post(
+                "http://localhost:8000/api/v1/retrieval/search",
+                json={
+                    "query": "How do I set up a vector database?",
+                    "top_k": 5,
+                    "similarity_threshold": 0.7
+                }
+            )
+
+            results = response.json()
+            for result in results["results"]:
+                print(f"{result['rank']}. {result['metadata']['document_title']}")
+                print(f"   Similarity: {result['similarity_score']:.1%}")
+
+  /retrieval/validate:
+    post:
+      summary: Validate data integrity of stored chunks
+      description: |
+        Verify that chunks stored in Qdrant match the original extracted text.
+        Used for testing data integrity requirements (FR-005).
+      operationId: validateChunks
+      tags:
+        - Testing & Validation
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ValidationRequest'
+            examples:
+              validateOne:
+                summary: Validate single chunk
+                value:
+                  chunk_ids:
+                    - "550e8400-e29b-41d4-a716-446655440000"
+                  original_texts:
+                    - "To set up a vector database, first install the Qdrant Docker image..."
+              validateMultiple:
+                summary: Validate multiple chunks
+                value:
+                  chunk_ids:
+                    - "550e8400-e29b-41d4-a716-446655440000"
+                    - "550e8400-e29b-41d4-a716-446655440001"
+                  original_texts:
+                    - "To set up a vector database..."
+                    - "Install Qdrant using Docker Compose..."
+      responses:
+        '200':
+          description: Validation results for requested chunks
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ValidationResponse'
+              examples:
+                allPassed:
+                  summary: All chunks validated successfully
+                  value:
+                    validation_results:
+                      - chunk_id: "550e8400-e29b-41d4-a716-446655440000"
+                        matches: true
+                        stored_text: "To set up a vector database, first install the Qdrant Docker image..."
+                        original_text: "To set up a vector database, first install the Qdrant Docker image..."
+                        validation_passed: true
+                        mismatch_details: null
+                oneFailed:
+                  summary: One chunk failed validation
+                  value:
+                    validation_results:
+                      - chunk_id: "550e8400-e29b-41d4-a716-446655440000"
+                        matches: false
+                        stored_text: "To set up a vector dat..."
+                        original_text: "To set up a vector database, first install the Qdrant Docker image..."
+                        validation_passed: false
+                        mismatch_details: "Stored text truncated or corrupted (length mismatch: 24 vs 89 chars)"
+        '400':
+          description: Invalid request parameters
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '404':
+          description: One or more chunks not found in Qdrant
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+              examples:
+                notFound:
+                  summary: Chunk not found
+                  value:
+                    status: "error"
+                    results: []
+                    errors:
+                      - "Chunk 550e8400-e29b-41d4-a716-446655440999 not found in Qdrant"
+
+components:
+  schemas:
+    SearchRequest:
+      type: object
+      required:
+        - query
+      properties:
+        query:
+          type: string
+          minLength: 1
+          maxLength: 10000
+          description: The search query text to embed and match against stored vectors
+          example: "How do I set up a vector database?"
+        top_k:
+          type: integer
+          minimum: 1
+          maximum: 1000
+          default: 5
+          description: Number of top results to return
+          example: 5
+        similarity_threshold:
+          type: number
+          format: float
+          minimum: 0.0
+          maximum: 1.0
+          default: 0.0
+          description: Minimum similarity score (0-1) to include in results
+          example: 0.7
+      additionalProperties: false
+
+    SearchResult:
+      type: object
+      required:
+        - rank
+        - text
+        - similarity_score
+        - metadata
+      properties:
+        rank:
+          type: integer
+          minimum: 1
+          description: Position in result set (1-indexed)
+          example: 1
+        text:
+          type: string
+          minLength: 1
+          description: The retrieved document chunk text (exact match from storage)
+          example: "To set up a vector database, first install the Qdrant Docker image..."
+        similarity_score:
+          type: number
+          format: float
+          minimum: 0.0
+          maximum: 1.0
+          description: Cosine similarity score between query and result
+          example: 0.92
+        metadata:
+          $ref: '#/components/schemas/ChunkMetadata'
+
+    ChunkMetadata:
+      type: object
+      required:
+        - chunk_id
+        - url
+      properties:
+        chunk_id:
+          type: string
+          format: uuid
+          description: Unique identifier for the chunk
+          example: "550e8400-e29b-41d4-a716-446655440000"
+        url:
+          type: string
+          format: uri
+          description: Source document URL
+          example: "https://docs.example.com/guide/setup"
+        position:
+          type: integer
+          minimum: 0
+          description: Position in document (word count or chunk index)
+          example: 245
+        timestamp:
+          type: string
+          format: date-time
+          description: When chunk was created/indexed (ISO 8601)
+          example: "2025-12-15T10:30:00Z"
+        document_title:
+          type: string
+          maxLength: 500
+          description: Title of source document
+          example: "Vector Database Setup Guide"
+
+    ExecutionMetadata:
+      type: object
+      required:
+        - latency_ms
+        - result_count
+        - threshold_applied
+      properties:
+        latency_ms:
+          type: integer
+          minimum: 0
+          description: Total request-response time in milliseconds
+          example: 145
+        result_count:
+          type: integer
+          minimum: 0
+          description: Number of results returned
+          example: 5
+        threshold_applied:
+          type: number
+          format: float
+          minimum: 0.0
+          maximum: 1.0
+          description: Similarity threshold used for filtering
+          example: 0.7
+        query_embedded_at:
+          type: string
+          format: date-time
+          description: When query was embedded (ISO 8601)
+          example: "2025-12-16T14:30:01Z"
+        qdrant_query_time_ms:
+          type: integer
+          minimum: 0
+          description: Time Qdrant took to search
+          example: 120
+
+    RetrievalResponse:
+      type: object
+      required:
+        - query
+        - status
+        - results
+        - execution
+        - errors
+      properties:
+        query:
+          type: string
+          description: Echo of original query text
+          example: "How do I set up a vector database?"
+        status:
+          type: string
+          enum:
+            - success
+            - error
+          description: Request status
+          example: "success"
+        results:
+          type: array
+          items:
+            $ref: '#/components/schemas/SearchResult'
+          description: Array of search results (may be empty if no matches)
+          example: []
+        execution:
+          $ref: '#/components/schemas/ExecutionMetadata'
+        errors:
+          type: array
+          items:
+            type: string
+          description: Error messages if status="error"
+          example: []
+
+    ErrorResponse:
+      type: object
+      required:
+        - query
+        - status
+        - results
+        - execution
+        - errors
+      properties:
+        query:
+          type: string
+          description: Original query (if available)
+          example: "test query"
+        status:
+          type: string
+          enum:
+            - error
+          description: Always "error" for error responses
+        results:
+          type: array
+          items: {}
+          description: Always empty array for errors
+          example: []
+        execution:
+          $ref: '#/components/schemas/ExecutionMetadata'
+        errors:
+          type: array
+          items:
+            type: string
+          minItems: 1
+          description: Descriptive error messages
+          example:
+            - "Qdrant service unavailable"
+
+    ValidationRequest:
+      type: object
+      required:
+        - chunk_ids
+        - original_texts
+      properties:
+        chunk_ids:
+          type: array
+          items:
+            type: string
+            format: uuid
+          minItems: 1
+          description: List of chunk IDs to validate
+          example:
+            - "550e8400-e29b-41d4-a716-446655440000"
+        original_texts:
+          type: array
+          items:
+            type: string
+            minLength: 1
+          minItems: 1
+          description: Original text for each chunk (in same order as chunk_ids)
+          example:
+            - "To set up a vector database..."
+      additionalProperties: false
+
+    ValidationResult:
+      type: object
+      required:
+        - chunk_id
+        - matches
+        - stored_text
+        - original_text
+        - validation_passed
+      properties:
+        chunk_id:
+          type: string
+          format: uuid
+          description: Chunk identifier
+          example: "550e8400-e29b-41d4-a716-446655440000"
+        matches:
+          type: boolean
+          description: Whether stored text matches original exactly
+          example: true
+        stored_text:
+          type: string
+          description: Text currently stored in Qdrant
+          example: "To set up a vector database..."
+        original_text:
+          type: string
+          description: Original text from pipeline
+          example: "To set up a vector database..."
+        validation_passed:
+          type: boolean
+          description: Overall validation status
+          example: true
+        mismatch_details:
+          type: string
+          nullable: true
+          description: Description of differences if validation fails
+          example: null
+
+    ValidationResponse:
+      type: object
+      required:
+        - validation_results
+      properties:
+        validation_results:
+          type: array
+          items:
+            $ref: '#/components/schemas/ValidationResult'
+          description: Validation results for each chunk
+
+tags:
+  - name: Retrieval
+    description: Semantic search operations
+  - name: Testing & Validation
+    description: Data integrity validation endpoints

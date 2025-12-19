@@ -1,0 +1,30 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(grep:*)",
+      "Bash(npm install)",
+      "Bash(npm install:*)",
+      "Bash(uv --version)",
+      "Bash(uv pip install -r requirements.txt)",
+      "Bash(uv venv)",
+      "Bash(pip index versions cohere)",
+      "Bash(source .venv/Scripts/activate)",
+      "Bash(python main.py)",
+      "Bash(uv pip install python-dotenv)",
+      "Bash(mkdir:*)",
+      "Bash(powershell:*)",
+      "Bash(git fetch:*)",
+      "Bash(cat:*)",
+      "Bash(find backend/ -name \"*.py\" -exec grep -l \"FastAPI\" {} ;)",
+      "Bash(git rev-parse --git-dir)",
+      "Bash(python test_fix_simple.py)",
+      "Bash(del test_qdrant_response.py)",
+      "Bash(del test_qdrant_response_detailed.py)",
+      "Bash(del test_fix.py)",
+      "Bash(del test_fix_simple.py)",
+      "Bash(del test_qdrant_response.py test_qdrant_response_detailed.py test_fix.py test_fix_simple.py)"
+    ],
+    "deny": [],
+    "ask": []
+  }
+}

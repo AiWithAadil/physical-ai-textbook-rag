@@ -1,0 +1,29 @@
+{
+  "unversionedId": "part-03-advanced-topics/real-world-integration",
+  "id": "part-03-advanced-topics/real-world-integration",
+  "title": "Real-World Integration and Deployment",
+  "description": "Bridging the gap between simulation and real systems",
+  "source": "@site/docs/part-03-advanced-topics/11-real-world-integration.md",
+  "sourceDirName": "part-03-advanced-topics",
+  "slug": "/part-03-advanced-topics/real-world-integration",
+  "permalink": "/part-03-advanced-topics/real-world-integration",
+  "draft": false,
+  "editUrl": "https://github.com/your-org/physical-ai/tree/main/docs/part-03-advanced-topics/11-real-world-integration.md",
+  "tags": [],
+  "version": "current",
+  "sidebarPosition": 3,
+  "frontMatter": {
+    "sidebar_position": 3,
+    "title": "Real-World Integration and Deployment",
+    "description": "Bridging the gap between simulation and real systems"
+  },
+  "sidebar": "tutorialSidebar",
+  "previous": {
+    "title": "Safety, Robustness, and Reliability",
+    "permalink": "/part-03-advanced-topics/safety-robustness"
+  },
+  "next": {
+    "title": "Case Studies and Future Directions",
+    "permalink": "/part-03-advanced-topics/case-studies"
+  }
+}
