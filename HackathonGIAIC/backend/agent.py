@@ -30,10 +30,7 @@ from fastapi import FastAPI, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
 from dotenv import load_dotenv
 
-try:
-    import google.generativeai as genai
-except ImportError:
-    genai = None
+import openai
 
 # Load environment variables
 load_dotenv()
@@ -51,7 +48,7 @@ logger = logging.getLogger(__name__)
 class RAGAgentResponse(BaseModel):
     """Structured response from RAG agent."""
 
-    answer: str = Field(..., description="Generated answer from Gemini")
+    answer: str = Field(..., description="Generated answer from LLM")
     sources: List[str] = Field(
         default_factory=list, description="Source URLs from retrieved chunks"
     )
@@ -138,30 +135,32 @@ class RAGAgent:
     """Retrieval-Augmented Generation Agent.
 
     Orchestrates the RAG pipeline: query validation, retrieval, context
-    formatting, and answer generation using Gemini LLM.
+    formatting, and answer generation using OpenRouter LLM.
     """
 
     def __init__(
         self,
         retrieval_service=None,
-        model: str = "gemini-2.0-flash",
+        model: str = "mistralai/devstral-2512:free",
         temperature: float = 0.7,
         max_tokens: int = 1024,
         timeout: int = 30,
-        gemini_api_key: Optional[str] = None,
+        openrouter_api_key: Optional[str] = None,
+        base_url: str = "https://openrouter.ai/api/v1",
     ):
         """Initialize RAG Agent.
 
         Args:
             retrieval_service: RetrievalService instance (for embedding + search)
-            model: Gemini model name (default: gemini-1.5-flash)
+            model: OpenRouter model name (default: mistralai/devstral-2512:free)
             temperature: LLM temperature for response generation
             max_tokens: Maximum tokens in LLM response
             timeout: Request timeout in seconds
-            gemini_api_key: Gemini API key (if not provided, uses env variable)
+            openrouter_api_key: OpenRouter API key (if not provided, uses env variable)
+            base_url: OpenRouter API base URL
 
         Raises:
-            LLMError: If Gemini client initialization fails
+            LLMError: If OpenAI client initialization fails
         """
         self.retrieval_service = retrieval_service
         self.model = model
@@ -169,23 +168,27 @@ class RAGAgent:
         self.max_tokens = max_tokens
         self.timeout = timeout
 
-        # Initialize Gemini client
+        # Initialize OpenAI client with OpenRouter
         try:
-            if gemini_api_key:
-                genai.configure(api_key=gemini_api_key)
-            elif not genai:
-                raise LLMUnexpectedError(
-                    "google.generativeai not installed. "
-                    "Install with: pip install google-generativeai"
-                )
-            self.gemini_client = genai
+            if openrouter_api_key:
+                api_key = openrouter_api_key
+            else:
+                api_key = os.getenv("OPENROUTER_API_KEY")
+                if not api_key:
+                    raise LLMUnexpectedError("OPENROUTER_API_KEY not found in environment variables")
+
+            from openai import OpenAI
+            self.client = OpenAI(
+                api_key=api_key,
+                base_url=base_url.rstrip('/') + '/'
+            )
             logger.info(
                 f"RAGAgent initialized with model={model}, "
                 f"temperature={temperature}, max_tokens={max_tokens}, timeout={timeout}s"
             )
         except Exception as e:
-            logger.error(f"Failed to initialize Gemini client: {str(e)}")
-            raise LLMUnexpectedError(f"Gemini initialization failed: {str(e)}")
+            logger.error(f"Failed to initialize OpenRouter client: {str(e)}")
+            raise LLMUnexpectedError(f"OpenRouter initialization failed: {str(e)}")
 
     async def answer(
         self,
@@ -221,8 +224,8 @@ class RAGAgent:
             # Format context from retrieved chunks
             context = self._format_context(retrieved_results)
 
-            # Generate answer using Gemini
-            logger.info("Generating answer with Gemini...")
+            # Generate answer using OpenRouter
+            logger.info("Generating answer with OpenRouter...")
             answer_text = await self._generate_answer(query, context)
 
             # Extract sources from retrieved results
@@ -402,7 +405,7 @@ class RAGAgent:
         return context
 
     def _construct_system_prompt(self) -> str:
-        """Construct the system prompt for Gemini."""
+        """Construct the system prompt for OpenRouter."""
         return (
             "You are a helpful assistant that answers questions based on provided context.\n\n"
             "Instructions:\n"
@@ -414,39 +417,39 @@ class RAGAgent:
         )
 
     async def _generate_answer(self, query: str, context: str) -> str:
-        """Generate answer using Gemini LLM."""
+        """Generate answer using OpenRouter LLM."""
         try:
-            if not self.gemini_client:
-                raise LLMUnexpectedError("Gemini client not initialized")
+            if not self.client:
+                raise LLMUnexpectedError("OpenRouter client not initialized")
 
             system_prompt = self._construct_system_prompt()
-            full_prompt = f"{system_prompt}\n\n{context}\n\nUser Query: {query}"
+            messages = [
+                {"role": "system", "content": system_prompt},
+                {"role": "user", "content": f"{context}\n\nUser Query: {query}"}
+            ]
 
-            async def _call_gemini():
-                logger.debug("Calling Gemini API...")
-                model = self.gemini_client.GenerativeModel(self.model)
-                response = await asyncio.to_thread(
-                    model.generate_content,
-                    full_prompt,
-                    generation_config={
-                        "temperature": self.temperature,
-                        "max_output_tokens": self.max_tokens,
-                    },
+            async def _call_openrouter():
+                logger.debug("Calling OpenRouter API...")
+                response = self.client.chat.completions.create(
+                    model=self.model,
+                    messages=messages,
+                    temperature=self.temperature,
+                    max_tokens=self.max_tokens,
                 )
-                return response.text
+                return response.choices[0].message.content
 
             answer_text = await asyncio.wait_for(
-                self._retry_with_backoff(_call_gemini), timeout=self.timeout
+                self._retry_with_backoff(_call_openrouter), timeout=self.timeout
             )
 
             logger.info("Answer generated successfully")
             return answer_text
 
         except asyncio.TimeoutError:
-            logger.error(f"Gemini request timed out after {self.timeout}s")
-            raise LLMTimeoutError(f"Gemini request timed out after {self.timeout}s")
+            logger.error(f"OpenRouter request timed out after {self.timeout}s")
+            raise LLMTimeoutError(f"OpenRouter request timed out after {self.timeout}s")
         except Exception as e:
-            logger.error(f"Gemini generation failed: {str(e)}")
+            logger.error(f"OpenRouter generation failed: {str(e)}")
             raise LLMUnexpectedError(f"Failed to generate answer: {str(e)}")
 
     def _extract_sources(self, results: List[Dict]) -> List[str]:
@@ -491,7 +494,7 @@ class RAGAgent:
 
 app = FastAPI(
     title="RAG Agent API",
-    description="Retrieval-Augmented Generation API with Gemini",
+    description="Retrieval-Augmented Generation API with OpenRouter",
     version="1.0.0"
 )
 
@@ -518,26 +521,26 @@ async def root():
 @app.post("/ask", response_model=RAGAgentResponse)
 async def ask_endpoint(request: QueryRequest):
     """Ask a question to the RAG agent.
-    
+
     Args:
         request: QueryRequest with query text and optional parameters
-        
+
     Returns:
         RAGAgentResponse with answer, sources, and matched chunks
     """
     try:
         # Get API keys from environment
-        gemini_api_key = os.getenv("GEMINI_API_KEY")
+        openrouter_api_key = os.getenv("OPENROUTER_API_KEY")
         qdrant_url = os.getenv("QDRANT_URL")
         qdrant_api_key = os.getenv("QDRANT_API_KEY")
         cohere_api_key = os.getenv("COHERE_API_KEY")
-        
-        if not gemini_api_key:
+
+        if not openrouter_api_key:
             raise HTTPException(
                 status_code=500,
-                detail="GEMINI_API_KEY not found in environment variables"
+                detail="OPENROUTER_API_KEY not found in environment variables"
             )
-        
+
         # Initialize services
         qdrant_service = QdrantService(url=qdrant_url, api_key=qdrant_api_key)
         embedding_service = EmbeddingService(api_key=cohere_api_key)
@@ -546,22 +549,22 @@ async def ask_endpoint(request: QueryRequest):
             embedding_service=embedding_service,
             collection_name="rag_embedding"  # Your collection name from embedding pipeline
         )
-        
+
         # Initialize RAG Agent with retrieval service
         agent = RAGAgent(
             retrieval_service=retrieval_service,
-            gemini_api_key=gemini_api_key
+            openrouter_api_key=openrouter_api_key
         )
-        
+
         # Generate answer
         response = await agent.answer(
             query=request.query,
             top_k=request.top_k,
             threshold=request.threshold
         )
-        
+
         return response
-        
+
     except QueryError as e:
         raise HTTPException(status_code=400, detail=str(e))
     except Exception as e:

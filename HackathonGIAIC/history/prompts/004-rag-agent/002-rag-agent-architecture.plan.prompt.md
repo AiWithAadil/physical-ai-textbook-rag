@@ -9,7 +9,7 @@ feature: 004-rag-agent
 branch: 004-rag-agent
 user: Developer
 command: /sp.plan
-labels: ["rag", "architecture", "gemini", "agent", "implementation-plan"]
+labels: ["rag", "architecture", "openrouter", "agent", "implementation-plan"]
 links:
   spec: specs/004-rag-agent/spec.md
   ticket: null
@@ -25,26 +25,26 @@ tests:
 
 ## Prompt
 
-Create backend/agent.py using OpenAI Agents SDK with Gemini as the LLM provider.
+Create backend/agent.py using OpenAI library with OpenRouter as the LLM provider.
 
 Architecture:
-- Use OpenAI Agents SDK framework for agent structure
-- Configure Gemini API (key: AIzaSyDJR1kPIl7BvL5DXFXP0QvANiSEBSR_CUA) as the LLM backend
+- Use OpenAI library framework for agent structure
+- Configure OpenRouter API (key: sk-or-v1-...) as the LLM backend
 - Import retrieve functions from retrieving.py
-- Agent workflow: query → embed with Cohere → retrieve from Qdrant → generate answer with Gemini
+- Agent workflow: query → embed with Cohere → retrieve from Qdrant → generate answer with OpenRouter
 
 Implementation details:
 - File: backend/agent.py
-- Use google-generativeai library for Gemini integration
+- Use openai library for OpenRouter integration
 - Create RAG agent that:
   1. Takes user query as input
   2. Calls retrieve functions to get relevant chunks
   3. Constructs prompt with retrieved context
-  4. Sends to Gemini for answer generation
+  4. Sends to OpenRouter for answer generation
   5. Returns structured response with answer + sources
 
 NO FastAPI yet - just pure agent logic
-Store Gemini API key in .env as GEMINI_API_KEY
+Store OpenRouter API key in .env as OPENROUTER_API_KEY
 Handle errors: no results, API failures, empty queries
 
 ## Response snapshot
@@ -53,13 +53,13 @@ Handle errors: no results, API failures, empty queries
 
 **Key Architectural Decisions**:
 
-1. **Framework Choice - Gemini Direct Integration** (not OpenAI Agents SDK)
-   - Reason: OpenAI SDK is optimized for OpenAI LLMs; direct google-generativeai integration is simpler and clearer
-   - Use `google-generativeai>=0.7.0` with Gemini 1.5 Flash model
+1. **Framework Choice - OpenRouter Direct Integration** (not OpenAI Agents SDK)
+   - Reason: OpenAI SDK is optimized for OpenAI LLMs; direct openai integration is simpler and clearer
+   - Use `openai>=1.0.0` with mistralai/devstral-2512:free model
    - Reduces dependency complexity and improves code clarity
 
 2. **RAG Pipeline**:
-   - Query input → Cohere embedding (via RetrievalService) → Qdrant search (top-k=5) → Context formatting → Gemini generation → Structured response
+   - Query input → Cohere embedding (via RetrievalService) → Qdrant search (top-k=5) → Context formatting → OpenRouter generation → Structured response
 
 3. **Service Integration**:
    - Reuse existing `RetrievalService` (embedding + search orchestration)

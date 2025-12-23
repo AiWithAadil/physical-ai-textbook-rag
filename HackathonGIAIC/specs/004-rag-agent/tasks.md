@@ -26,19 +26,19 @@ description: "Task list for RAG Agent with Retrieval Integration feature"
 **Goal**: Prepare the backend environment for RAG agent implementation
 
 - [ ] T001 Create `backend/agent.py` skeleton with module docstring and imports structure
-- [ ] T002 Add `google-generativeai>=0.7.0` to `backend/requirements.txt`
+- [ ] T002 Add `openai>=1.0.0` to `backend/requirements.txt`
 - [ ] T003 Verify `backend/requirements.txt` has all required dependencies (qdrant-client, cohere, pydantic, python-dotenv)
-- [ ] T004 [P] Configure `backend/.env` with GEMINI_API_KEY and related Gemini settings
-- [ ] T005 [P] Update `backend/src/config.py` to load GEMINI_API_KEY and other Gemini configuration variables
+- [ ] T004 [P] Configure `backend/.env` with OPENROUTER_API_KEY and related OpenRouter settings
+- [ ] T005 [P] Update `backend/src/config.py` to load OPENROUTER_API_KEY and other OpenRouter configuration variables
 
 **Checkpoint**: Dependencies installed, environment configured, skeleton agent.py ready for implementation
 
 **✅ PHASE 1 COMPLETE**:
 - [x] T001 Create `backend/agent.py` skeleton with module docstring and imports structure
-- [x] T002 Add `google-generativeai>=0.7.0` to `backend/requirements.txt`
+- [x] T002 Add `openai>=1.0.0` to `backend/requirements.txt`
 - [x] T003 Verify `backend/requirements.txt` has all required dependencies (qdrant-client, cohere, pydantic, python-dotenv)
-- [x] T004 [P] Configure `backend/.env` with GEMINI_API_KEY and related Gemini settings
-- [x] T005 [P] Update `backend/src/config.py` to load GEMINI_API_KEY and other Gemini configuration variables
+- [x] T004 [P] Configure `backend/.env` with OPENROUTER_API_KEY and related OpenRouter settings
+- [x] T005 [P] Update `backend/src/config.py` to load OPENROUTER_API_KEY and other OpenRouter configuration variables
 
 ---
 
@@ -52,8 +52,8 @@ description: "Task list for RAG Agent with Retrieval Integration feature"
 - [ ] T007 Create custom exception classes in `backend/agent.py`: QueryError, RetrievalError, LLMError, LLMTimeoutError, LLMRateLimitError, LLMUnexpectedError
 - [ ] T008 Create `RAGAgent` class constructor in `backend/agent.py` that accepts RetrievalService, model name, temperature, max_tokens, timeout
 - [ ] T009 Implement `_validate_query()` helper method in RAGAgent to check for empty/invalid queries and raise QueryError
-- [ ] T010 Implement retry logic with exponential backoff as `_retry_with_backoff()` helper method for Gemini API calls
-- [ ] T011 Initialize google.generativeai client in RAGAgent constructor with proper configuration and error handling
+- [ ] T010 Implement retry logic with exponential backoff as `_retry_with_backoff()` helper method for OpenRouter API calls
+- [ ] T011 Initialize openai client in RAGAgent constructor with proper configuration and error handling
 
 **Checkpoint**: Foundation ready - RAGAgent class structure and models in place. User story implementation can now begin.
 
@@ -62,8 +62,8 @@ description: "Task list for RAG Agent with Retrieval Integration feature"
 - [x] T007 Create custom exception classes in `backend/agent.py`: QueryError, RetrievalError, LLMError, LLMTimeoutError, LLMRateLimitError, LLMUnexpectedError
 - [x] T008 Create `RAGAgent` class constructor in `backend/agent.py` that accepts RetrievalService, model name, temperature, max_tokens, timeout
 - [x] T009 Implement `_validate_query()` helper method in RAGAgent to check for empty/invalid queries and raise QueryError
-- [x] T010 Implement retry logic with exponential backoff as `_retry_with_backoff()` helper method for Gemini API calls
-- [x] T011 Initialize google.generativeai client in RAGAgent constructor with proper configuration and error handling
+- [x] T010 Implement retry logic with exponential backoff as `_retry_with_backoff()` helper method for OpenRouter API calls
+- [x] T011 Initialize openai client in RAGAgent constructor with proper configuration and error handling
 
 ---
 
@@ -78,16 +78,16 @@ description: "Task list for RAG Agent with Retrieval Integration feature"
 - [ ] T012 [P] [US1] Implement `_retrieve()` method in RAGAgent to call RetrievalService with SearchQuery and return List[SearchResult]
 - [ ] T013 [P] [US1] Implement `_format_context()` method in RAGAgent to convert retrieved chunks into formatted context string with metadata (rank, source, similarity score)
 - [ ] T014 [US1] Implement `_construct_system_prompt()` method in RAGAgent that creates system prompt constraining LLM to use provided context and cite sources
-- [ ] T015 [US1] Implement `_generate_answer()` method in RAGAgent that calls Gemini API with system prompt + context + query, includes retry logic for transient failures
+- [ ] T015 [US1] Implement `_generate_answer()` method in RAGAgent that calls OpenRouter API with system prompt + context + query, includes retry logic for transient failures
 - [ ] T016 [US1] Implement main `answer()` async method in RAGAgent that orchestrates: validate → retrieve → format → generate → structure response
 - [ ] T017 [US1] Add error handling in answer() method to catch RetrievalError and convert to graceful "No relevant documents found" response
 - [ ] T018 [US1] Add error handling in answer() method to catch LLMError and LLMTimeoutError with appropriate error messages
 - [ ] T019 [US1] Implement response metadata tracking in RAGAgent (latency_ms, token_usage, chunk_count) in execute flow
-- [ ] T020 [US1] Add comprehensive logging in RAGAgent for query input, retrieval results, Gemini calls, and final response
+- [ ] T020 [US1] Add comprehensive logging in RAGAgent for query input, retrieval results, OpenRouter calls, and final response
 - [ ] T021 [US1] Create unit test in `backend/tests/unit/test_rag_agent_basic.py` to test successful query → answer flow with mock services
-- [ ] T022 [US1] Create integration test in `backend/tests/integration/test_rag_agent_e2e.py` to test full workflow with real Qdrant and Gemini (requires valid API keys)
+- [ ] T022 [US1] Create integration test in `backend/tests/integration/test_rag_agent_e2e.py` to test full workflow with real Qdrant and OpenRouter (requires valid API keys)
 
-**Checkpoint**: User Story 1 complete - RAG agent can accept queries, retrieve relevant chunks, generate answers with Gemini, and return structured responses
+**Checkpoint**: User Story 1 complete - RAG agent can accept queries, retrieve relevant chunks, generate answers with OpenRouter, and return structured responses
 
 **✅ PHASE 3 COMPLETE (MVP DELIVERED)**:
 - [x] T012 [P] [US1] Implement `_retrieve()` method in RAGAgent
@@ -110,7 +110,7 @@ description: "Task list for RAG Agent with Retrieval Integration feature"
 - Query validation and error handling
 - Retrieval integration with Qdrant + Cohere
 - Context formatting with metadata
-- Gemini LLM integration with retry logic
+- OpenRouter LLM integration with retry logic
 - Comprehensive logging throughout
 - Structured RAGAgentResponse output
 
@@ -120,7 +120,7 @@ description: "Task list for RAG Agent with Retrieval Integration feature"
 
 **Goal**: Ensure robust error handling for invalid inputs and API failures
 
-**Independent Test**: Call `RAGAgent.answer()` with missing/empty query, verify QueryError raised; call with query that returns no results, verify graceful response; simulate Qdrant/Cohere/Gemini failures and verify appropriate error handling
+**Independent Test**: Call `RAGAgent.answer()` with missing/empty query, verify QueryError raised; call with query that returns no results, verify graceful response; simulate Qdrant/Cohere/OpenRouter failures and verify appropriate error handling
 
 ### Implementation for User Story 2
 
@@ -128,8 +128,8 @@ description: "Task list for RAG Agent with Retrieval Integration feature"
 - [ ] T024 [P] [US2] Implement graceful degradation when RetrievalService returns no results (answer: "I don't have enough information...")
 - [ ] T025 [P] [US2] Enhance error handling to catch and handle QdrantError with HTTP 503 equivalent response
 - [ ] T026 [P] [US2] Enhance error handling to catch and handle EmbeddingError with appropriate error message
-- [ ] T027 [P] [US2] Implement retry logic in `_generate_answer()` for Gemini rate limiting (HTTP 429) with exponential backoff
-- [ ] T028 [P] [US2] Implement timeout handling in Gemini API call (30s timeout) that returns partial response with error message
+- [ ] T027 [P] [US2] Implement retry logic in `_generate_answer()` for OpenRouter rate limiting (HTTP 429) with exponential backoff
+- [ ] T028 [P] [US2] Implement timeout handling in OpenRouter API call (30s timeout) that returns partial response with error message
 - [ ] T029 [US2] Add validation for empty matched_chunks and return appropriate response
 - [ ] T030 [US2] Create comprehensive error test suite in `backend/tests/unit/test_rag_agent_errors.py` covering: empty query, no results, API failures, timeouts, rate limiting
 - [ ] T031 [US2] Create integration test for error scenarios in `backend/tests/integration/test_rag_agent_error_cases.py` with simulated API failures
@@ -184,7 +184,7 @@ description: "Task list for RAG Agent with Retrieval Integration feature"
 - [ ] T049 Add type checking with mypy for agent.py
 - [ ] T050 Run all unit tests with coverage (target: >80% coverage)
 - [ ] T051 Run all integration tests and validate outputs
-- [ ] T052 Update `backend/.env.example` with all new GEMINI_* variables
+- [ ] T052 Update `backend/.env.example` with all new OPENROUTER_* variables
 - [ ] T053 Document configuration options in README
 
 **Checkpoint**: All phases complete, code polished, tested, and documented. Ready for integration with FastAPI endpoint (Phase 2 in future PR).
@@ -363,11 +363,11 @@ Week 2 (cont):
 - [ ] RAGAgentResponse model validates correctly
 - [ ] All exception classes raise appropriately
 - [ ] RAGAgent can be instantiated with default config
-- [ ] google.generativeai client initializes
+- [ ] openai client initializes
 
 ### Phase 3 (MVP) Completion
-- [ ] Query → embedding → retrieval → formatting → Gemini generation → response flow works end-to-end
-- [ ] Integration test passes with real Qdrant + Gemini
+- [ ] Query → embedding → retrieval → formatting → OpenRouter generation → response flow works end-to-end
+- [ ] Integration test passes with real Qdrant + OpenRouter
 - [ ] Response has all required fields (answer, sources, matched_chunks, metadata)
 - [ ] Answer text is non-empty and relevant to query
 - [ ] Sources extracted correctly from retrieved chunks
@@ -403,7 +403,7 @@ Week 2 (cont):
 - **Error handling**: Test error paths thoroughly before Phase 3 release
 - **Logging**: Add throughout for debugging and monitoring
 - **Configuration**: Ensure .env has all required keys before starting Phase 3
-- **API Keys**: Verify Gemini, Cohere, and Qdrant credentials are valid
+- **API Keys**: Verify OpenRouter, Cohere, and Qdrant credentials are valid
 
 ---
 
@@ -413,7 +413,7 @@ If you encounter blocker issues:
 
 **At Phase 1**: Reinstall dependencies from scratch
 **At Phase 2**: Revert to basic agent skeleton, restart Phase 2 tasks
-**At Phase 3**: Rollback to Phase 2 checkpoint, debug retrieval/Gemini integration
+**At Phase 3**: Rollback to Phase 2 checkpoint, debug retrieval/OpenRouter integration
 **At Phase 4**: Keep Phase 3 working, debug error handling in isolation
 **At Phase 5**: Verify Phase 2 integration with logging
 

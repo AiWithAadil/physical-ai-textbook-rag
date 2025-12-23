@@ -2,7 +2,7 @@
   "unversionedId": "homepage",
   "id": "homepage",
   "title": "Physical AI",
-  "description": "Building Intelligent Systems That Interact with the Real World",
+  "description": "Physical AI",
   "source": "@site/docs/index.md",
   "sourceDirName": ".",
   "slug": "/",

@@ -22,12 +22,13 @@ class Config:
     COHERE_API_KEY: str = os.getenv("COHERE_API_KEY", "")
     COHERE_MODEL: str = os.getenv("COHERE_MODEL", "embed-english-v3.0")
 
-    # Gemini Configuration
-    GEMINI_API_KEY: str = os.getenv("GEMINI_API_KEY", "")
-    GEMINI_MODEL: str = os.getenv("GEMINI_MODEL", "gemini-2.0-flash")
-    GEMINI_TEMPERATURE: float = float(os.getenv("GEMINI_TEMPERATURE", "0.7"))
-    GEMINI_MAX_TOKENS: int = int(os.getenv("GEMINI_MAX_TOKENS", "1024"))
-    GEMINI_TIMEOUT: int = int(os.getenv("GEMINI_TIMEOUT", "30"))
+    # OpenRouter Configuration
+    OPENROUTER_API_KEY: str = os.getenv("OPENROUTER_API_KEY", "")
+    OPENROUTER_MODEL: str = os.getenv("OPENROUTER_MODEL", "mistralai/devstral-2512:free")
+    OPENROUTER_TEMPERATURE: float = float(os.getenv("OPENROUTER_TEMPERATURE", "0.7"))
+    OPENROUTER_MAX_TOKENS: int = int(os.getenv("OPENROUTER_MAX_TOKENS", "1024"))
+    OPENROUTER_TIMEOUT: int = int(os.getenv("OPENROUTER_TIMEOUT", "30"))
+    OPENROUTER_BASE_URL: str = os.getenv("OPENROUTER_BASE_URL", "https://openrouter.ai/api/v1")
 
     # Application Configuration
     LOG_LEVEL: str = os.getenv("LOG_LEVEL", "INFO")

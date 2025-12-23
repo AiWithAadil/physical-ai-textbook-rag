@@ -180,7 +180,7 @@ const RagChat = ({ backendUrl = 'http://localhost:8000' }) => {
           aria-label="Open AI Assistant"
           aria-expanded="false"
         >
-          💬 Ask AI
+          💬
         </button>
       ) : (
         <div
@@ -215,7 +215,7 @@ const RagChat = ({ backendUrl = 'http://localhost:8000' }) => {
                 )}
                 {response.sources && response.sources.length > 0 && (
                   <div className="rag-sources" role="region" aria-labelledby="sources-heading">
-                    <strong id="sources-heading">Sources:</strong>
+                    <strong id="sources-heading">📚 Sources:</strong>
                     <ul>
                       {response.sources.map((source, index) => (
                         <li key={index} aria-label={`Source ${index + 1}: ${source}`}>
@@ -227,7 +227,7 @@ const RagChat = ({ backendUrl = 'http://localhost:8000' }) => {
                 )}
                 {response.matched_chunks && response.matched_chunks.length > 0 && (
                   <div className="rag-matched-chunks" role="region" aria-labelledby="chunks-heading">
-                    <strong id="chunks-heading">Reference Chunks:</strong>
+                    <strong id="chunks-heading">🔗 Reference Chunks:</strong>
                     <div className="chunks-list" role="list">
                       {response.matched_chunks.map((chunk, index) => (
                         <div key={index} className="chunk-item" role="listitem">
@@ -235,8 +235,8 @@ const RagChat = ({ backendUrl = 'http://localhost:8000' }) => {
                             <em>{chunk.text.substring(0, 200)}{chunk.text.length > 200 ? '...' : ''}</em>
                           </div>
                           <div className="chunk-meta" aria-label={`Chunk ${index + 1} metadata`}>
-                            <span className="chunk-source">Source: {chunk.source}</span>
-                            <span className="chunk-score">Score: {chunk.similarity_score?.toFixed(2)}</span>
+                            <span className="chunk-source">📄 {chunk.source}</span>
+                            <span className="chunk-score">🎯 {chunk.similarity_score?.toFixed(2)}</span>
                           </div>
                         </div>
                       ))}
@@ -245,7 +245,7 @@ const RagChat = ({ backendUrl = 'http://localhost:8000' }) => {
                 )}
                 {response.error && (
                   <div className="rag-backend-error" role="alert">
-                    <strong>Backend Error:</strong> {response.error}
+                    <strong>⚠️ Backend Error:</strong> {response.error}
                   </div>
                 )}
               </div>
@@ -254,14 +254,14 @@ const RagChat = ({ backendUrl = 'http://localhost:8000' }) => {
             {error && (
               <div className="rag-error" role="alert">
                 <div className="error-content">
-                  <strong>Error:</strong> {error}
+                  <strong>⚠️ Error:</strong> {error}
                 </div>
                 <button
                   className="retry-button"
                   onClick={() => handleSubmit({ preventDefault: () => {} })}
                   aria-label="Retry the last request"
                 >
-                  Retry
+                  🔄 Retry
                 </button>
               </div>
             )}
@@ -269,7 +269,7 @@ const RagChat = ({ backendUrl = 'http://localhost:8000' }) => {
             {isLoading && (
               <div className="rag-loading" role="status" aria-live="polite">
                 <div className="spinner" role="img" aria-label="Loading"></div>
-                <span>Processing your question...</span>
+                <span>🤖 Thinking...</span>
               </div>
             )}
           </div>
@@ -287,7 +287,7 @@ const RagChat = ({ backendUrl = 'http://localhost:8000' }) => {
                   }
                 }
               }}
-              placeholder="Ask a question..."
+              placeholder="Ask about Physical AI concepts..."
               className="rag-input"
               disabled={isLoading || isSubmitting}
               aria-label="Type your question here"
@@ -299,7 +299,7 @@ const RagChat = ({ backendUrl = 'http://localhost:8000' }) => {
               className="rag-submit"
               aria-label="Submit question"
             >
-              Send
+              🚀
             </button>
           </form>
         </div>

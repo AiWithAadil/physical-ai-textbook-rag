@@ -15,9 +15,9 @@
           "editUrlLocalized": "https://github.com/your-org/physical-ai/tree/main/i18n/en/docusaurus-plugin-content-docs/current",
           "isLast": true,
           "routePriority": -1,
-          "sidebarFilePath": "C:\\Users\\HP\\Documents\\HackathonGIAIC\\physical-ai\\sidebars.js",
-          "contentPath": "C:\\Users\\HP\\Documents\\HackathonGIAIC\\physical-ai\\docs",
-          "contentPathLocalized": "C:\\Users\\HP\\Documents\\HackathonGIAIC\\physical-ai\\i18n\\en\\docusaurus-plugin-content-docs\\current",
+          "sidebarFilePath": "C:\\Users\\HP\\Downloads\\physical-ai-textbook-rag\\HackathonGIAIC\\physical-ai\\sidebars.js",
+          "contentPath": "C:\\Users\\HP\\Downloads\\physical-ai-textbook-rag\\HackathonGIAIC\\physical-ai\\docs",
+          "contentPathLocalized": "C:\\Users\\HP\\Downloads\\physical-ai-textbook-rag\\HackathonGIAIC\\physical-ai\\i18n\\en\\docusaurus-plugin-content-docs\\current",
           "docs": [
             {
               "unversionedId": "appendices/glossary",
@@ -106,7 +106,7 @@
               "unversionedId": "homepage",
               "id": "homepage",
               "title": "Physical AI",
-              "description": "Building Intelligent Systems That Interact with the Real World",
+              "description": "Physical AI",
               "source": "@site/docs/index.md",
               "sourceDirName": ".",
               "slug": "/",

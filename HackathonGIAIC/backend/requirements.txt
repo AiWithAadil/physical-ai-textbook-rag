@@ -27,5 +27,5 @@ python-json-logger>=2.0.0
 # Performance and utilities
 tenacity>=8.2.0
 
-# LLM Integration - Gemini
-google-generativeai>=0.7.0
+# LLM Integration - OpenRouter
+openai>=1.0.0

@@ -22,7 +22,10 @@
       "Bash(del test_qdrant_response_detailed.py)",
       "Bash(del test_fix.py)",
       "Bash(del test_fix_simple.py)",
-      "Bash(del test_qdrant_response.py test_qdrant_response_detailed.py test_fix.py test_fix_simple.py)"
+      "Bash(del test_qdrant_response.py test_qdrant_response_detailed.py test_fix.py test_fix_simple.py)",
+      "Bash(dir \"physical-ai\\\\src\\\\components\")",
+      "Bash(dir physical-ai /s)",
+      "Bash(dir \"physical-ai\\\\src\\\\components\\\\RagChat\" /s)"
     ],
     "deny": [],
     "ask": []

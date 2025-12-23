@@ -4,27 +4,619 @@
  * work well for content-centric websites.
  */
 
-/* You can override the default Infima variables here. */
+/* Modern book-like color palette for Physical AI Book */
 :root {
-  --ifm-color-primary: #2e8555;
-  --ifm-color-primary-dark: #29784c;
-  --ifm-color-primary-darker: #277148;
-  --ifm-color-primary-darkest: #205d3b;
-  --ifm-color-primary-light: #33925d;
-  --ifm-color-primary-lighter: #359962;
-  --ifm-color-primary-lightest: #3cad6e;
-  --ifm-code-font-size: 95%;
+  --ifm-color-primary: #5850ec; /* Enhanced indigo for better contrast */
+  --ifm-color-primary-dark: #4c44d4;
+  --ifm-color-primary-darker: #3f37b9;
+  --ifm-color-primary-darkest: #322b9e;
+  --ifm-color-primary-light: #7d75f0;
+  --ifm-color-primary-lighter: #a29bf4;
+  --ifm-color-primary-lightest: #c7c0f8;
+
+  /* Additional modern book-like colors */
+  --ifm-color-secondary: #5a67d8; /* Enhanced purple for better contrast */
+  --ifm-color-success: #0f9d58; /* Enhanced green for better visibility */
+  --ifm-color-info: #00bcd4; /* Enhanced teal for better visibility */
+  --ifm-color-warning: #ff9800; /* Enhanced amber for better visibility */
+  --ifm-color-danger: #d93025; /* Enhanced red for better visibility */
+
+  --ifm-color-gray-50: #f9fafb;
+  --ifm-color-gray-100: #f3f4f6;
+  --ifm-color-gray-200: #e5e7eb;
+  --ifm-color-gray-300: #d1d5db;
+  --ifm-color-gray-400: #9ca3af;
+  --ifm-color-gray-500: #6b7280;
+  --ifm-color-gray-600: #4b5563;
+  --ifm-color-gray-700: #374151;
+  --ifm-color-gray-800: #1f2937;
+  --ifm-color-gray-900: #111827;
+
+  /* Typography */
+  --ifm-font-family-base: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  --ifm-line-height-base: 1.7;
+  --ifm-heading-line-height: 1.2;
+
+  /* Spacing */
+  --ifm-spacing-vertical: 2.5rem;
+  --ifm-spacing-horizontal: 2.5rem;
+
+  /* Border radius */
+  --ifm-global-radius: 16px;
+  --ifm-code-border-radius: 12px;
+
+  /* Shadows - more book-like depth */
+  --ifm-global-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+  --ifm-card-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+  --ifm-hero-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+
+  /* Code font size */
+  --ifm-code-font-size: 90%;
   --docusaurus-highlighted-code-line-bg: rgba(0, 0, 0, 0.1);
+
+  /* Header and footer */
+  --ifm-navbar-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+  --ifm-footer-background-color: #1a202c;
+  --ifm-footer-color: var(--ifm-color-gray-100);
+  --ifm-footer-link-color: var(--ifm-color-gray-300);
+  --ifm-footer-link-hover-color: var(--ifm-color-primary);
+
+  /* Book-like background and paper colors */
+  --ifm-background-color: #f8fafc;
+  --ifm-background-surface-color: #ffffff;
+  --ifm-book-page-color: #ffffff;
+  --ifm-book-page-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.15);
+
+  /* Enhanced text contrast */
+  --ifm-font-color-base: #1e293b;
+  --ifm-color-content: #334155;
+  --ifm-color-content-secondary: #64748b;
 }
 
-/* For readability concerns, you should choose a lighter palette in dark mode. */
+/* Dark mode adjustments */
 [data-theme='dark'] {
-  --ifm-color-primary: #25c2a0;
-  --ifm-color-primary-dark: #21af90;
-  --ifm-color-primary-darker: #1fa588;
-  --ifm-color-primary-darkest: #1a8870;
-  --ifm-color-primary-light: #29d5b0;
-  --ifm-color-primary-lighter: #32d8b4;
-  --ifm-color-primary-lightest: #4fddbf;
-  --docusaurus-highlighted-code-line-bg: rgba(0, 0, 0, 0.3);
+  --ifm-color-primary: #818cf8;
+  --ifm-color-primary-dark: #6366f1;
+  --ifm-color-primary-darker: #4f46e5;
+  --ifm-color-primary-darkest: #4338ca;
+  --ifm-color-primary-light: #a5b4fc;
+  --ifm-color-primary-lighter: #c7d2fe;
+  --ifm-color-primary-lightest: #e0e7ff;
+
+  --ifm-background-color: #0f172a;
+  --ifm-background-surface-color: #1e293b;
+  --ifm-font-color-base: #e2e8f0;
+  --ifm-color-content: #cbd5e1;
+  --ifm-color-content-secondary: #94a3b8;
+
+  --ifm-navbar-background-color: #0f172a;
+  --ifm-navbar-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.3);
+
+  --docusaurus-highlighted-code-line-bg: rgba(255, 255, 255, 0.1);
+
+  --ifm-global-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.3), 0 4px 6px -2px rgba(0, 0, 0, 0.2);
+  --ifm-card-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.3), 0 10px 10px -5px rgba(0, 0, 0, 0.2);
+
+  /* Dark mode book-like background */
+  --ifm-book-page-color: #1e293b;
+
+  /* Enhanced dark mode text contrast */
+  --ifm-font-color-base: #f1f5f9;
+  --ifm-color-content: #e2e8f0;
+  --ifm-color-content-secondary: #cbd5e1;
+}
+
+/* Enhanced text contrast for better readability */
+html {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.markdown {
+  --ifm-h1-font-size: 2.5rem;
+  --ifm-h2-font-size: 2rem;
+  --ifm-h3-font-size: 1.75rem;
+}
+
+.markdown h1,
+.markdown h2,
+.markdown h3,
+.markdown h4,
+.markdown h5,
+.markdown h6 {
+  color: var(--ifm-font-color-base);
+}
+
+.markdown p,
+.markdown li,
+.markdown td,
+.markdown th {
+  color: var(--ifm-color-content);
+}
+
+/* Enhanced code block styling */
+.prism-code {
+  background: linear-gradient(135deg, var(--ifm-color-gray-50) 0%, var(--ifm-color-gray-100) 100%);
+  color: var(--ifm-font-color-base);
+}
+
+[data-theme='dark'] .prism-code {
+  background: linear-gradient(135deg, var(--ifm-color-gray-800) 0%, var(--ifm-color-gray-900) 100%);
+  color: var(--ifm-color-content);
+}
+
+/* Enhanced button contrast */
+.button--primary {
+  color: white !important;
+  background: linear-gradient(135deg, var(--ifm-color-primary) 0%, var(--ifm-color-primary-darker) 100%);
+}
+
+.button--secondary {
+  color: white !important;
+  background: linear-gradient(135deg, var(--ifm-color-secondary) 0%, #667eea 100%);
+}
+
+.button--outline {
+  color: var(--ifm-color-primary) !important;
+  border: 2px solid var(--ifm-color-primary);
+  background: transparent;
+}
+
+.button--outline:hover {
+  background: var(--ifm-color-primary);
+  color: white !important;
+}
+
+/* Enhanced card contrast */
+.card {
+  background: linear-gradient(135deg, var(--ifm-book-page-color) 0%, var(--ifm-color-gray-50) 100%);
+  color: var(--ifm-font-color-base);
+  border: 1px solid var(--ifm-color-gray-200);
+}
+
+[data-theme='dark'] .card {
+  border: 1px solid var(--ifm-color-gray-700);
+}
+
+.card__header h3 {
+  color: var(--ifm-color-primary);
+}
+
+.card__body {
+  color: var(--ifm-color-content);
+}
+
+/* Enhanced hero section contrast */
+.hero {
+  background: linear-gradient(135deg, var(--ifm-color-primary) 0%, #667eea 100%);
+  color: white;
+}
+
+.hero__title {
+  color: white;
+  font-size: 3rem;
+  font-weight: 800;
+}
+
+.hero__subtitle {
+  color: rgba(255,255,255,0.9);
+}
+
+/* Enhanced footer contrast */
+.footer {
+  background: linear-gradient(135deg, var(--ifm-footer-background-color) 0%, #0f172a 100%) !important;
+  color: var(--ifm-footer-color);
+}
+
+/* Book-like page styling */
+.main-wrapper {
+  background: linear-gradient(135deg, var(--ifm-color-gray-100) 0%, var(--ifm-background-color) 100%);
+  min-height: 100vh;
+  padding: 2rem 0;
+}
+
+/* Enhanced book-like container */
+.container {
+  background-color: var(--ifm-book-page-color);
+  border-radius: var(--ifm-global-radius);
+  box-shadow: var(--ifm-book-page-shadow);
+  padding: 2.5rem;
+  margin: 0 auto;
+  max-width: 1200px;
+  position: relative;
+}
+
+/* Book spine effect on the left side */
+.container::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 8px;
+  height: 100%;
+  background: linear-gradient(to right, #d1d5db, #e5e7eb, #d1d5db);
+  border-radius: 4px 0 0 4px;
+  box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+[data-theme='dark'] .container::before {
+  background: linear-gradient(to right, #374151, #4b5563, #374151);
+}
+
+/* Modern typography enhancements */
+.docusaurus-highlight-code-line {
+  background-color: rgba(0, 0, 0, 0.1);
+  display: block;
+  margin: 0 calc(-1 * var(--ifm-pre-padding));
+  padding: 0 var(--ifm-pre-padding);
+}
+
+/* Enhanced code blocks */
+.prism-code {
+  border-radius: var(--ifm-code-border-radius);
+  font-size: var(--ifm-code-font-size);
+  background: linear-gradient(135deg, var(--ifm-color-gray-50) 0%, var(--ifm-color-gray-100) 100%);
+}
+
+[data-theme='dark'] .prism-code {
+  background: linear-gradient(135deg, var(--ifm-color-gray-800) 0%, var(--ifm-color-gray-900) 100%);
+}
+
+/* Modern button styles with book-like feel */
+.button {
+  border-radius: var(--ifm-global-radius);
+  transition: all 0.3s ease-in-out;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+  position: relative;
+  overflow: hidden;
+  z-index: 1;
+}
+
+.button::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(135deg, var(--ifm-color-primary-light) 0%, var(--ifm-color-primary) 100%);
+  z-index: -1;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.button:hover {
+  transform: translateY(-3px);
+  box-shadow: var(--ifm-global-shadow);
+  color: white !important;
+}
+
+.button:hover::before {
+  opacity: 1;
+}
+
+.button--primary {
+  background: linear-gradient(135deg, var(--ifm-color-primary) 0%, var(--ifm-color-primary-darker) 100%);
+  border: none;
+}
+
+/* Enhanced navigation with book-like feel */
+.navbar {
+  box-shadow: var(--ifm-navbar-shadow);
+  backdrop-filter: blur(10px);
+  background-color: rgba(255, 255, 255, 0.97) !important;
+  border-bottom: 1px solid var(--ifm-color-gray-200);
+}
+
+[data-theme='dark'] .navbar {
+  background-color: rgba(15, 23, 42, 0.97) !important;
+  border-bottom: 1px solid var(--ifm-color-gray-700);
+}
+
+/* Enhanced sidebar with book-like styling */
+.menu {
+  border-radius: var(--ifm-global-radius);
+  background: var(--ifm-book-page-color);
+  box-shadow: var(--ifm-global-shadow);
+  padding: 1.5rem;
+}
+
+/* Modern cards with book-like styling */
+.card {
+  border-radius: var(--ifm-global-radius);
+  box-shadow: var(--ifm-card-shadow);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  border: none;
+  overflow: hidden;
+  background: linear-gradient(135deg, var(--ifm-book-page-color) 0%, var(--ifm-color-gray-50) 100%);
+}
+
+.card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.15);
+}
+
+/* Enhanced footer with book-like styling */
+.footer {
+  background: linear-gradient(135deg, var(--ifm-footer-background-color) 0%, #0f172a 100%) !important;
+  color: var(--ifm-footer-color);
+  padding: 4rem 0 3rem 0;
+  margin-top: 4rem;
+}
+
+.footer a {
+  color: var(--ifm-footer-link-color);
+  transition: color 0.3s ease;
+  position: relative;
+}
+
+.footer a::after {
+  content: '';
+  position: absolute;
+  bottom: -2px;
+  left: 0;
+  width: 0;
+  height: 1px;
+  background-color: var(--ifm-footer-link-hover-color);
+  transition: width 0.3s ease;
+}
+
+.footer a:hover {
+  color: var(--ifm-footer-link-hover-color);
+}
+
+.footer a:hover::after {
+  width: 100%;
+}
+
+/* Modern documentation content with book-like styling */
+.markdown h1,
+.markdown h2,
+.markdown h3,
+.markdown h4,
+.markdown h5,
+.markdown h6 {
+  font-weight: 700;
+  line-height: var(--ifm-heading-line-height);
+  position: relative;
+}
+
+.markdown h1 {
+  font-size: 2.5rem;
+  margin-bottom: 1.5rem;
+  padding-bottom: 0.5rem;
+  border-bottom: 2px solid var(--ifm-color-gray-200);
+}
+
+[data-theme='dark'] .markdown h1 {
+  border-bottom: 2px solid var(--ifm-color-gray-700);
+}
+
+/* Enhanced tables with book-like styling */
+.markdown table {
+  border-radius: var(--ifm-global-radius);
+  overflow: hidden;
+  box-shadow: var(--ifm-global-shadow);
+  border: 1px solid var(--ifm-color-gray-200);
+}
+
+[data-theme='dark'] .markdown table {
+  border: 1px solid var(--ifm-color-gray-700);
+}
+
+/* Better links with book-like styling */
+.markdown a {
+  text-decoration: none;
+  position: relative;
+  font-weight: 500;
+  color: var(--ifm-color-primary);
+}
+
+.markdown a::after {
+  content: '';
+  position: absolute;
+  bottom: -1px;
+  left: 0;
+  width: 100%;
+  height: 2px;
+  background-color: currentColor;
+  transform: scaleX(0);
+  transition: transform 0.3s ease;
+}
+
+.markdown a:hover::after {
+  transform: scaleX(1);
+}
+
+/* Enhanced admonitions with book-like styling */
+.alert {
+  border-radius: var(--ifm-global-radius);
+  box-shadow: var(--ifm-global-shadow);
+  border: none;
+  position: relative;
+  overflow: hidden;
+}
+
+.alert::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 4px;
+  height: 100%;
+}
+
+.alert--primary::before {
+  background: var(--ifm-color-primary);
+}
+
+.alert--secondary::before {
+  background: var(--ifm-color-secondary);
+}
+
+.alert--success::before {
+  background: var(--ifm-color-success);
+}
+
+.alert--info::before {
+  background: var(--ifm-color-info);
+}
+
+.alert--warning::before {
+  background: var(--ifm-color-warning);
+}
+
+.alert--danger::before {
+  background: var(--ifm-color-danger);
+}
+
+/* Hero section styling for book-like appearance */
+.hero {
+  background: linear-gradient(135deg, var(--ifm-color-primary) 0%, #6366f1 100%);
+  border-radius: var(--ifm-global-radius);
+  box-shadow: var(--ifm-hero-shadow);
+  margin-bottom: 3rem;
+  padding: 4rem 2rem;
+  position: relative;
+  overflow: hidden;
+}
+
+.hero::before {
+  content: '';
+  position: absolute;
+  top: -50%;
+  right: -20%;
+  width: 60%;
+  height: 200%;
+  background: radial-gradient(circle, rgba(255,255,255,0.2) 0%, transparent 70%);
+  transform: rotate(30deg);
+}
+
+.hero__title {
+  font-size: 3rem;
+  font-weight: 800;
+  color: white;
+  margin-bottom: 1rem;
+  position: relative;
+  text-shadow: 0 2px 4px rgba(0,0,0,0.3);
+}
+
+.hero__subtitle {
+  font-size: 1.25rem;
+  color: rgba(255,255,255,0.9);
+  position: relative;
+}
+
+/* Button group styling for homepage */
+.button-group {
+  display: flex;
+  gap: 1rem;
+  flex-wrap: wrap;
+  justify-content: center;
+  margin: 2rem 0;
+}
+
+.button-group .button {
+  flex: 1;
+  min-width: 200px;
+  text-align: center;
+  padding: 1rem 1.5rem;
+}
+
+/* Homepage section dividers */
+.markdown hr {
+  border: none;
+  height: 1px;
+  background: linear-gradient(to right, transparent, var(--ifm-color-gray-300), transparent);
+  margin: 3rem 0;
+}
+
+[data-theme='dark'] .markdown hr {
+  background: linear-gradient(to right, transparent, var(--ifm-color-gray-600), transparent);
+}
+
+/* CTA section styling */
+.cta-section {
+  background: linear-gradient(135deg, var(--ifm-color-primary-lightest) 0%, var(--ifm-color-gray-100) 100%);
+  border-radius: var(--ifm-global-radius);
+  padding: 3rem 2rem;
+  text-align: center;
+  margin: 3rem 0;
+  box-shadow: var(--ifm-global-shadow);
+}
+
+[data-theme='dark'] .cta-section {
+  background: linear-gradient(135deg, var(--ifm-color-gray-800) 0%, #1e293b 100%);
+}
+
+.cta-section h2 {
+  font-size: 2rem;
+  margin-bottom: 1.5rem;
+  color: var(--ifm-color-emphasis-900);
+}
+
+/* Responsive design improvements */
+@media (max-width: 996px) {
+  .navbar {
+    padding: 0.75rem 1rem;
+  }
+
+  .container {
+    padding: 1.5rem;
+    margin: 0 1rem;
+  }
+
+  .hero {
+    padding: 2rem 1rem;
+  }
+
+  .hero__title {
+    font-size: 2rem;
+  }
+
+  .button-group {
+    flex-direction: column;
+  }
+
+  .button-group .button {
+    min-width: auto;
+  }
+}
+
+/* Smooth scrolling */
+html {
+  scroll-behavior: smooth;
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--ifm-color-gray-200);
+  border-radius: 5px;
+}
+
+[data-theme='dark'] ::-webkit-scrollbar-track {
+  background: var(--ifm-color-gray-700);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--ifm-color-gray-400);
+  border-radius: 5px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--ifm-color-gray-500);
+}
+
+[data-theme='dark'] ::-webkit-scrollbar-thumb {
+  background: var(--ifm-color-gray-600);
+}
+
+[data-theme='dark'] ::-webkit-scrollbar-thumb:hover {
+  background: var(--ifm-color-gray-500);
 }

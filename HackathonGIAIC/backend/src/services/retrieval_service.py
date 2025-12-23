@@ -157,18 +157,35 @@ class RetrievalService:
             try:
                 # Extract metadata from payload
                 payload = result.payload or {}
+
+                # Handle different field names that might be in the payload
+                # Prioritize content field if available (as seen in your Qdrant data)
+                text_content = payload.get("content", "") or payload.get("text", "")
+
+                # Handle timestamp field - convert from float (Unix timestamp) to ISO string if needed
+                timestamp_value = payload.get("created_at", payload.get("timestamp"))
+                if timestamp_value is not None:
+                    # Check if it's a float (Unix timestamp) and convert to ISO string
+                    if isinstance(timestamp_value, float):
+                        import datetime
+                        timestamp_value = datetime.datetime.fromtimestamp(timestamp_value, tz=datetime.timezone.utc).isoformat().replace('+00:00', 'Z')
+                    elif isinstance(timestamp_value, int):
+                        import datetime
+                        timestamp_value = datetime.datetime.fromtimestamp(timestamp_value, tz=datetime.timezone.utc).isoformat().replace('+00:00', 'Z')
+
+                # Create metadata with flexible field mapping
                 metadata = ChunkMetadata(
-                    chunk_id=payload.get("chunk_id", ""),
-                    url=payload.get("url", ""),
+                    chunk_id=payload.get("original_chunk_id", payload.get("chunk_id", "")),
+                    url=payload.get("source_url", payload.get("url", "")),
                     position=payload.get("position"),
-                    timestamp=payload.get("timestamp"),
-                    document_title=payload.get("document_title"),
+                    timestamp=timestamp_value,
+                    document_title=payload.get("title", payload.get("document_title")),
                 )
 
-                # Create search result
+                # Create search result with proper text field
                 search_result = SearchResult(
                     rank=rank,
-                    text=payload.get("text", ""),
+                    text=text_content,
                     similarity_score=result.score or 0.0,
                     metadata=metadata,
                 )

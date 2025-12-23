@@ -9,9 +9,9 @@
 
 ## Executive Summary
 
-This plan details the implementation of a RAG (Retrieval-Augmented Generation) Agent backend that integrates Gemini LLM, Cohere embeddings, and Qdrant vector storage. The implementation focuses on the agent logic layer (`backend/agent.py`) that orchestrates query processing, retrieval, and answer generation - no FastAPI endpoint layer in this phase.
+This plan details the implementation of a RAG (Retrieval-Augmented Generation) Agent backend that integrates OpenRouter LLM, Cohere embeddings, and Qdrant vector storage. The implementation focuses on the agent logic layer (`backend/agent.py`) that orchestrates query processing, retrieval, and answer generation - no FastAPI endpoint layer in this phase.
 
-**Key Deliverable**: `backend/agent.py` - A pure agent implementation using google-generativeai library with Gemini as the LLM provider.
+**Key Deliverable**: `backend/agent.py` - A pure agent implementation using openai library with OpenRouter as the LLM provider.
 
 ---
 
@@ -33,9 +33,9 @@ This plan details the implementation of a RAG (Retrieval-Augmented Generation) A
 │  └──────────────────────────────────────────────┘  │
 │         ↓                    ↓                      │
 │  ┌──────────────┐   ┌───────────────┐             │
-│  │ Retrieval    │   │ Gemini LLM    │             │
-│  │ Service      │   │ (via google-  │             │
-│  │ (embedding + │   │  generativeai)│             │
+│  │ Retrieval    │   │ OpenRouter    │             │
+│  │ Service      │   │ LLM (via      │             │
+│  │ (embedding + │   │  openai)      │             │
 │  │  Qdrant)     │   │               │             │
 │  └──────────────┘   └───────────────┘             │
 │                                                     │
@@ -54,7 +54,7 @@ This plan details the implementation of a RAG (Retrieval-Augmented Generation) A
    - Context string constructed
 4. **LLM Processing**:
    - Prompt engineered with context + query
-   - Sent to Gemini API
+   - Sent to OpenRouter API
    - Response generated
 5. **Output**: Structured response with answer, sources, matched_chunks
 
@@ -71,28 +71,29 @@ The agent integrates with existing backend services:
 
 ## Design Decisions
 
-### 1. Agent Framework Choice: Pure Gemini Integration (Not OpenAI Agents SDK)
+### 1. Agent Framework Choice: Pure OpenRouter Integration (Not OpenAI Agents SDK)
 
-**Decision**: Use `google-generativeai` library directly instead of OpenAI Agents SDK
+**Decision**: Use `openai` library directly instead of OpenAI Agents SDK
 
 **Rationale**:
-- OpenAI Agents SDK is optimized for OpenAI LLMs; using Gemini requires workarounds
-- `google-generativeai` (1.3+) has native support for function calling and tool use
+- OpenAI Agents SDK is optimized for OpenAI LLMs; using OpenRouter requires workarounds
+- `openai` library has native support for function calling and tool use
 - Simpler, more direct integration with fewer abstractions
-- Gemini API is production-ready and fully supports the RAG pattern
+- OpenRouter API is production-ready and fully supports the RAG pattern
 - Reduces dependency bloat and deployment complexity
 
 **Trade-off**: Less framework abstraction, but gains clarity and direct control over LLM interactions
 
-### 2. Gemini Configuration
+### 2. OpenRouter Configuration
 
-**Model**: `gemini-1.5-flash` (default)
+**Model**: `mistralai/devstral-2512:free` (default)
 - Fast inference for RAG scenarios
 - Cost-effective
-- Supports large context windows (100k tokens)
+- Supports large context windows
 
 **Configuration**:
-- API key from environment: `GEMINI_API_KEY`
+- API key from environment: `OPENROUTER_API_KEY`
+- Base URL: `https://openrouter.ai/api/v1`
 - Temperature: 0.7 (balanced between creativity and consistency)
 - Max tokens: 1024 (reasonable for RAG answers)
 - Timeout: 30 seconds with retry logic
@@ -124,8 +125,8 @@ Retrieved Context:
 | No search results | Answer: "No relevant documents found" | 200 |
 | Cohere embedding fails | EmbeddingError exception | 503 |
 | Qdrant unavailable | QdrantError exception | 503 |
-| Gemini API fails | LLMError exception | 503 |
-| Gemini rate limited | Retry with exponential backoff | 429 |
+| OpenRouter API fails | LLMError exception | 503 |
+| OpenRouter rate limited | Retry with exponential backoff | 429 |
 | Timeout (>30s) | Return best-effort partial response | 504 |
 
 ### 5. Prompt Engineering
@@ -162,11 +163,11 @@ User Query:
 
 **Components**:
 1. **RAGAgent class** - Main orchestrator
-   - Constructor: Initialize services, Gemini client, configuration
+   - Constructor: Initialize services, OpenRouter client, configuration
    - `answer(query: str) -> RAGAgentResponse` - Main entry point
    - `_retrieve(query: str) -> List[SearchResult]` - Wrapper around RetrievalService
    - `_format_context(results: List[SearchResult]) -> str` - Format chunks for LLM
-   - `_generate_answer(query: str, context: str) -> str` - Call Gemini
+   - `_generate_answer(query: str, context: str) -> str` - Call OpenRouter
    - Error handling throughout
 
 2. **Data Models** - Response structure
@@ -178,11 +179,11 @@ User Query:
      - `error: Optional[str]` (if applicable)
 
 3. **Configuration**
-   - Add `GEMINI_API_KEY` to `src/config.py`
-   - Add `GEMINI_MODEL`, `GEMINI_TEMPERATURE`, `GEMINI_MAX_TOKENS`, `GEMINI_TIMEOUT` (with defaults)
+   - Add `OPENROUTER_API_KEY` to `src/config.py`
+   - Add `OPENROUTER_MODEL`, `OPENROUTER_TEMPERATURE`, `OPENROUTER_MAX_TOKENS`, `OPENROUTER_TIMEOUT`, `OPENROUTER_BASE_URL` (with defaults)
 
 4. **Dependencies**
-   - Add `google-generativeai>=0.7.0` to `requirements.txt`
+   - Add `openai>=1.0.0` to `requirements.txt`
 
 ### Phase 2: FastAPI Integration (Future PR)
 
@@ -233,10 +234,11 @@ class RAGAgent:
     def __init__(
         self,
         retrieval_service: RetrievalService = None,
-        model: str = "gemini-1.5-flash",
+        model: str = "mistralai/devstral-2512:free",
         temperature: float = 0.7,
         max_tokens: int = 1024,
         timeout: int = 30,
+        base_url: str = "https://openrouter.ai/api/v1",
     ):
         """Initialize RAG Agent."""
 
@@ -255,7 +257,7 @@ class RAGAgent:
         Raises:
             QueryError: If query is empty or invalid
             RetrievalError: If retrieval fails
-            LLMError: If Gemini API fails
+            LLMError: If OpenRouter API fails
         """
 ```
 
@@ -263,7 +265,7 @@ class RAGAgent:
 
 ```python
 class RAGAgentResponse(BaseModel):
-    answer: str  # Generated answer from Gemini
+    answer: str  # Generated answer from LLM
     sources: List[str]  # List of source URLs
     matched_chunks: List[Dict]  # List of retrieved chunks with metadata
     execution_metadata: Dict  # Latency, token counts, etc.
@@ -280,7 +282,7 @@ class RAGAgentResponse(BaseModel):
 BaseException
 ├── QueryError (empty/invalid query)
 ├── RetrievalError (embedding/Qdrant failure)
-├── LLMError (Gemini API failure)
+├── LLMError (OpenRouter API failure)
 │   ├── LLMTimeoutError (request timeout)
 │   ├── LLMRateLimitError (quota exceeded)
 │   └── LLMUnexpectedError (other failures)
@@ -289,14 +291,14 @@ BaseException
 
 ### Retry Logic
 
-- **Gemini API failures**: Retry 3x with exponential backoff (1s, 2s, 4s)
+- **OpenRouter API failures**: Retry 3x with exponential backoff (1s, 2s, 4s)
 - **Rate limits (429)**: Retry with longer backoff (10s, 30s, 60s)
 - **Timeouts**: Return best-effort response with partial context
 
 ### Graceful Degradation
 
 - No results from retrieval → Return message: "I don't have enough information..."
-- Gemini timeout → Return retrieved chunks as-is with explanation
+- OpenRouter timeout → Return retrieved chunks as-is with explanation
 - Context truncation → Warn in response but continue processing
 
 ---
@@ -311,12 +313,13 @@ QDRANT_URL=https://fa01c593-...
 QDRANT_API_KEY=eyJhbGc...
 COHERE_API_KEY=O9iwwwjk3q...
 
-# New for Gemini
-GEMINI_API_KEY=AIzaSyDJR1kPIl7BvL5DXFXP0QvANiSEBSR_CUA
-GEMINI_MODEL=gemini-1.5-flash
-GEMINI_TEMPERATURE=0.7
-GEMINI_MAX_TOKENS=1024
-GEMINI_TIMEOUT=30
+# New for OpenRouter
+OPENROUTER_API_KEY=sk-or-v1-...
+OPENROUTER_MODEL=mistralai/devstral-2512:free
+OPENROUTER_TEMPERATURE=0.7
+OPENROUTER_MAX_TOKENS=1024
+OPENROUTER_TIMEOUT=30
+OPENROUTER_BASE_URL=https://openrouter.ai/api/v1
 ```
 
 ### Python Configuration (in `src/config.py`)
@@ -325,12 +328,13 @@ GEMINI_TIMEOUT=30
 class Config:
     # ... existing config ...
 
-    # Gemini Configuration
-    GEMINI_API_KEY: str = os.getenv("GEMINI_API_KEY", "")
-    GEMINI_MODEL: str = os.getenv("GEMINI_MODEL", "gemini-1.5-flash")
-    GEMINI_TEMPERATURE: float = float(os.getenv("GEMINI_TEMPERATURE", "0.7"))
-    GEMINI_MAX_TOKENS: int = int(os.getenv("GEMINI_MAX_TOKENS", "1024"))
-    GEMINI_TIMEOUT: int = int(os.getenv("GEMINI_TIMEOUT", "30"))
+    # OpenRouter Configuration
+    OPENROUTER_API_KEY: str = os.getenv("OPENROUTER_API_KEY", "")
+    OPENROUTER_MODEL: str = os.getenv("OPENROUTER_MODEL", "mistralai/devstral-2512:free")
+    OPENROUTER_TEMPERATURE: float = float(os.getenv("OPENROUTER_TEMPERATURE", "0.7"))
+    OPENROUTER_MAX_TOKENS: int = int(os.getenv("OPENROUTER_MAX_TOKENS", "1024"))
+    OPENROUTER_TIMEOUT: int = int(os.getenv("OPENROUTER_TIMEOUT", "30"))
+    OPENROUTER_BASE_URL: str = os.getenv("OPENROUTER_BASE_URL", "https://openrouter.ai/api/v1")
 ```
 
 ---
@@ -341,7 +345,7 @@ class Config:
 
 | Package | Version | Purpose |
 |---------|---------|---------|
-| `google-generativeai` | >=0.7.0 | Gemini API client |
+| `openai` | >=1.0.0 | OpenRouter API client |
 | `tenacity` | >=8.2.0 | Retry logic (already in requirements) |
 
 ### Existing Dependencies Used
@@ -370,13 +374,13 @@ class Config:
 
 1. **End-to-end workflow**: Query → retrieve → generate → response
 2. **Real Qdrant integration**: Verify with actual vector store
-3. **Real Gemini integration**: Test LLM response quality
+3. **Real OpenRouter integration**: Test LLM response quality
 4. **Timeout handling**: Verify retry and timeout behavior
 
 ### Performance Tests
 
 1. **Latency**: Measure end-to-end time (target: <2s)
-2. **Token usage**: Track Gemini token consumption
+2. **Token usage**: Track OpenRouter token consumption
 3. **Concurrency**: Test multiple simultaneous queries (target: 50 concurrent)
 
 ---
@@ -389,7 +393,7 @@ class Config:
 | Cohere + Qdrant integration | RetrievalService integration |
 | Response format | RAGAgentResponse with answer/sources/chunks |
 | Error handling | Exception hierarchy + graceful degradation |
-| <2s latency (p99) | Gemini fast model + efficient context |
+| <2s latency (p99) | OpenRouter fast model + efficient context |
 | 95% relevance | Similarity threshold + chunk selection |
 | 100% proper errors | Comprehensive exception handling |
 | Valid JSON | Pydantic models enforce structure |
@@ -411,7 +415,7 @@ class Config:
 
 | Risk | Impact | Mitigation |
 |------|--------|-----------|
-| Gemini API quota exhaustion | Service unavailability | Implement rate limiting, monitor usage, set alerts |
+| OpenRouter API quota exhaustion | Service unavailability | Implement rate limiting, monitor usage, set alerts |
 | Large context → token overflow | LLM errors | Implement context truncation, chunk selection optimization |
 | Qdrant unavailability | Retrieval failure | Graceful error handling, retry logic, fallback messages |
 | Cohere embedding variance | Inconsistent results | Version lock, similarity threshold tuning |
@@ -421,7 +425,7 @@ class Config:
 
 ## Architectural Decisions (ADR Candidates)
 
-1. **Use Gemini instead of OpenAI SDK**: Direct integration simplifies code, reduces dependencies
+1. **Use OpenRouter instead of OpenAI SDK**: Direct integration simplifies code, reduces dependencies
 2. **Sync vs Async**: Phase 1 uses async for compatibility with existing async stack
 3. **Prompt engineering**: System prompt constrains hallucination, enforces source attribution
 4. **Error types**: Custom exception hierarchy for precise error handling
@@ -452,8 +456,8 @@ class Config:
 ## Assumptions
 
 1. Qdrant vector store is pre-populated with embedded documents
-2. Gemini API credentials are valid and have sufficient quota
-3. Network connectivity to Qdrant and Gemini APIs is available
+2. OpenRouter API credentials are valid and have sufficient quota
+3. Network connectivity to Qdrant and OpenRouter APIs is available
 4. Document chunks in Qdrant have `text` and `url` fields in payload
 5. Query strings are UTF-8 encoded
 6. LLM responses fit within configured max_tokens

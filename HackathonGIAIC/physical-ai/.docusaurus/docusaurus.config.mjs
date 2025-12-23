@@ -27,12 +27,12 @@ export default {
       {
         "docs": {
           "routeBasePath": "/",
-          "sidebarPath": "C:\\Users\\HP\\Documents\\HackathonGIAIC\\physical-ai\\sidebars.js",
+          "sidebarPath": "C:\\Users\\HP\\Downloads\\physical-ai-textbook-rag\\HackathonGIAIC\\physical-ai\\sidebars.js",
           "editUrl": "https://github.com/your-org/physical-ai/tree/main/"
         },
         "blog": false,
         "theme": {
-          "customCss": "C:\\Users\\HP\\Documents\\HackathonGIAIC\\physical-ai\\src\\css\\custom.css"
+          "customCss": "C:\\Users\\HP\\Downloads\\physical-ai-textbook-rag\\HackathonGIAIC\\physical-ai\\src\\css\\custom.css"
         }
       }
     ]
