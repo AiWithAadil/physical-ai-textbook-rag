@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import './RagChat.css';
 import RagApiService from './api';
 
@@ -7,55 +7,58 @@ import RagApiService from './api';
  * A floating chat widget that allows users to ask questions to the RAG Agent
  */
 const RagChat = ({ backendUrl = 'http://localhost:8000' }) => {
-  // Initialize state with value from local storage if available
-  const [isOpen, setIsOpen] = useState(() => {
-    const savedState = localStorage.getItem('ragChatIsOpen');
-    return savedState ? JSON.parse(savedState) : false;
-  });
-
+  // Initialize state without localStorage during SSR
+  const [isOpen, setIsOpen] = useState(false);
   const [inputValue, setInputValue] = useState('');
   const [isLoading, setIsLoading] = useState(false);
-  const [isSubmitting, setIsSubmitting] = useState(false); // Submission lock
+  const [isSubmitting, setIsSubmitting] = useState(false);
   const [response, setResponse] = useState(null);
   const [error, setError] = useState(null);
 
   // Initialize API service
   const apiService = new RagApiService(backendUrl);
 
+  // Load saved state from localStorage only on client-side
+  useEffect(() => {
+    if (typeof window !== 'undefined') {
+      const savedState = localStorage.getItem('ragChatIsOpen');
+      if (savedState) {
+        setIsOpen(JSON.parse(savedState));
+      }
+    }
+  }, []);
+
   const toggleChat = () => {
     const newState = !isOpen;
     setIsOpen(newState);
-    // Save state to local storage
-    localStorage.setItem('ragChatIsOpen', JSON.stringify(newState));
+    // Save state to local storage only on client-side
+    if (typeof window !== 'undefined') {
+      localStorage.setItem('ragChatIsOpen', JSON.stringify(newState));
+    }
   };
 
   // Validate response format matches expected data model
   const validateResponse = (response) => {
-    // Check if response has required fields
     if (typeof response !== 'object' || response === null) {
       throw new Error('Invalid response format: response is not an object');
     }
 
-    // Check answer field
     if (response.answer === undefined) {
       console.warn('Response missing answer field');
     }
 
-    // Check sources field
     if (response.sources === undefined) {
       console.warn('Response missing sources field');
     } else if (!Array.isArray(response.sources)) {
       throw new Error('Invalid response format: sources is not an array');
     }
 
-    // Check matched_chunks field
     if (response.matched_chunks === undefined) {
       console.warn('Response missing matched_chunks field');
     } else if (!Array.isArray(response.matched_chunks)) {
       throw new Error('Invalid response format: matched_chunks is not an array');
     }
 
-    // Validate each chunk if present
     if (Array.isArray(response.matched_chunks)) {
       response.matched_chunks.forEach((chunk, index) => {
         if (typeof chunk !== 'object' || chunk === null) {
@@ -86,16 +89,13 @@ const RagChat = ({ backendUrl = 'http://localhost:8000' }) => {
         return await fn();
       } catch (error) {
         if (i === maxRetries - 1) {
-          // Last attempt, throw the error
           throw error;
         }
 
-        // Check if it's a client error (4xx) that shouldn't be retried
         if (error.message.includes('Backend error: 4')) {
-          throw error; // Don't retry client errors
+          throw error;
         }
 
-        // Calculate delay with exponential backoff and jitter
         const delay = baseDelay * Math.pow(2, i) + Math.random() * 1000;
         await new Promise(resolve => setTimeout(resolve, delay));
       }
@@ -105,19 +105,15 @@ const RagChat = ({ backendUrl = 'http://localhost:8000' }) => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    // Input validation
     const trimmedValue = inputValue.trim();
     if (!trimmedValue) {
       setError('Please enter a question');
-      // Log for debugging
       console.log('[RagChat] Input validation failed: empty question');
       return;
     }
 
-    // Check for maximum length
     if (trimmedValue.length > 10000) {
       setError('Question is too long. Please limit to 10,000 characters.');
-      // Log for debugging
       console.log('[RagChat] Input validation failed: question too long', {
         length: trimmedValue.length,
         limit: 10000
@@ -125,11 +121,9 @@ const RagChat = ({ backendUrl = 'http://localhost:8000' }) => {
       return;
     }
 
-    // Check if already submitting to prevent concurrent requests
     if (isSubmitting) {
-      // Log for debugging
       console.log('[RagChat] Submission blocked: already submitting');
-      return; // Ignore the submission if already processing
+      return;
     }
 
     setIsSubmitting(true);
@@ -137,19 +131,13 @@ const RagChat = ({ backendUrl = 'http://localhost:8000' }) => {
     setError(null);
     setResponse(null);
 
-    // Log submission start for debugging
     console.log('[RagChat] Submitting question:', trimmedValue.substring(0, 50) + '...');
 
     try {
-      // Call the backend API to ask the question with retry logic
       const apiResponse = await retryWithBackoff(() => apiService.askQuestion(trimmedValue));
-
-      // Validate the response format
       validateResponse(apiResponse);
-
       setResponse(apiResponse);
 
-      // Log successful response for debugging
       console.log('[RagChat] Received response:', {
         hasAnswer: !!apiResponse.answer,
         sourcesCount: apiResponse.sources?.length || 0,
@@ -160,9 +148,7 @@ const RagChat = ({ backendUrl = 'http://localhost:8000' }) => {
       console.error('[RagChat] Error submitting question:', err);
     } finally {
       setIsLoading(false);
-      setIsSubmitting(false); // Release the submission lock
-
-      // Log completion for debugging
+      setIsSubmitting(false);
       console.log('[RagChat] Submission completed');
     }
   };
