@@ -1,5 +1,6 @@
 # Core dependencies
-qdrant-client>=2.7.0
+qdrant-client==1.16.2
+
 cohere>=5.0.0
 pydantic>=2.0.0
 python-dotenv>=1.0.0
