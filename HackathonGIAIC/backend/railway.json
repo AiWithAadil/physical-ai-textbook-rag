@@ -4,6 +4,8 @@
     "builder": "NIXPACKS"
   },
   "deploy": {
-    "startCommand": "cd HackathonGIAIC/backend && uvicorn agent:app --host 0.0.0.0 --port $PORT"
+    "startCommand": "cd backend && uvicorn agent:app --host 0.0.0.0 --port $PORT
+"
   }
+
 }
