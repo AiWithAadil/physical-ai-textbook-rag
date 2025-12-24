@@ -6,7 +6,7 @@ import RagApiService from './api';
  * RagChat Component
  * A floating chat widget that allows users to ask questions to the RAG Agent
  */
-const RagChat = ({ backendUrl = 'http://localhost:8000' }) => {
+const RagChat = ({ backendUrl = 'bqh39ptx.up.railway.app' }) => {
   // Initialize state without localStorage during SSR
   const [isOpen, setIsOpen] = useState(false);
   const [inputValue, setInputValue] = useState('');
