@@ -11,7 +11,7 @@ This project combines a comprehensive Physical AI textbook with an intelligent c
 
 ## 🏗️ System Architecture
 
-![Physical AI RAG Chatbot - System Architecture](./architecture-diagram.png)
+![Physical AI RAG Chatbot - System Architecture](./Physical AI RAG Chatbot - System Architecture.png)
 
 ### Architecture Components
 
