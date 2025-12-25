@@ -2,7 +2,7 @@
 
 An AI-powered interactive textbook for Physical AI & Humanoid Robotics with an integrated RAG (Retrieval-Augmented Generation) chatbot. Built for the GIAIC Hackathon 2024.
 
-[![Live Demo](https://img.shields.io/badge/Live-Demo-brightgreen)]([YOUR_VERCEL_URL](https://physical-ai-textbook-rag.vercel.app/))
+[![Live Demo](https://img.shields.io/badge/Live-Demo-brightgreen)](https://physical-ai-textbook-rag.vercel.app/)
 
 
 ## 🎯 Overview
